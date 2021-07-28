@@ -1,0 +1,48 @@
+(set-logic QF_UFBV)
+(declare-fun oij1 (Bool) Bool)
+(assert
+  (not (oij1 (oij1 (oij1 true))))
+)
+(declare-fun u_X_W () Bool)
+(assert
+  (not (and u_X_W (not (oij1 false))))
+)
+(declare-fun ckz_04 () Bool)
+(assert
+  (ite (let ((p0L true)) (oij1 u_X_W)) u_X_W (oij1 u_X_W))
+)
+(declare-fun b9M () Bool)
+(check-sat)
+(define-fun x_rvQ1z () Bool
+  (let ((f6BpAY (xor (or true)))) (and (or (not f6BpAY))))
+)
+(define-fun q_cD_ ((v_9 Bool)) Bool
+  (= v_9 (let ((dd__ (=> v_9 v_9))) (not (ite (not dd__) dd__ (not v_9)))))
+)
+(declare-fun s9706 () Bool)
+(declare-fun ykC__ () Bool)
+(declare-fun gZ_ () (_ BitVec 1))
+(declare-fun h8Y4 () Bool)
+(declare-fun tGe_L9 () Bool)
+(declare-fun m_i () Bool)
+(define-fun c__ () Bool
+  (ite (let ((o_rI_ (bvult #b11 #b10))) (ite (let ((s86 true)) (not o_rI_)) (xor o_rI_) (let ((kr_9 o_rI_)) (and o_rI_)))) (let ((au__ false)) (let ((blk (not false))) blk)) (not (let ( (kb_d9X true)) (let ((w_bWcl kb_d9X)) (ite kb_d9X true false)))))
+)
+(declare-fun x___6V () Bool)
+(declare-fun a_pm () Bool)
+(define-fun br_0 () (_ BitVec 11)
+  ((_ extract 37 27) ((_ extract 64 7) (bvshl #b11110101001001011001101011011010110101100001101001000100001000010 ((_ extract 92 28) #b000001011111101100011010101110000111111111111100011000110000001000001110010001111101010000000011))))
+)
+(declare-fun c_6X3 () Bool)
+(define-fun vs_1 () (_ BitVec 3)
+  (let ((k9_39 (and (or true))) (av_ false) (v_rA4t_ (= (not false) true))) (let ((kAdE (let ((k1j7_ k9_39)) (not false)))) (let ((ytZ8 av_)) (let ((g_M4_1 ytZ8)) #b111))))
+)
+(define-fun xGS790 () Bool
+  (and (not false))
+)
+(declare-fun r_96M_0 () Bool)
+(declare-fun s1_B0l () Bool)
+(define-fun uVW92f6 ( (lG__7 Bool)) Bool
+  (let ((g8_ (let ((l___9ko false)) (not l___9ko)))) (let ((wZbpp__ g8_)) (and wZbpp__)))
+)
+(declare-fun sMJ () Bool)

@@ -1,0 +1,7 @@
+## remove SUID flags from files
+
+USER root
+
+RUN for f in $(find / -perm "/6000" -type f) ; do chmod a-s "$f" ; done
+
+USER user

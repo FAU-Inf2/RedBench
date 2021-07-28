@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '1.9'
+  options: '--std=c99 -w -O1'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 1152385
+  options:
+bug:
+  id: 'C53'
+  compile:
+    exitcode:
+    output: '/lib/CodeGen/LiveIntervalAnalysis.cpp:427'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

@@ -1,0 +1,110 @@
+diff --git a/gcc/c-parse.in b/gcc/c-parse.in
+index abf025d..25c46b0 100644
+--- a/gcc/c-parse.in
++++ b/gcc/c-parse.in
+@@ -54,6 +54,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA
+ #include "c-common.h"
+ 
+ #define YYERROR1 { yyerror ("syntax error"); YYERROR; }
++#define YYLEX yylex()
+ 
+ /* Like the default stack expander, except (1) use realloc when possible,
+    (2) impose no hard maxiumum on stack size, (3) REALLY do not use alloca.
+diff --git a/gcc/config/elfos.h b/gcc/config/elfos.h
+index 9eed0d1..dc33907 100644
+--- a/gcc/config/elfos.h
++++ b/gcc/config/elfos.h
+@@ -99,7 +99,7 @@ Boston, MA 02111-1307, USA.  */
+ 
+ #undef  ASM_OUTPUT_SKIP
+ #define ASM_OUTPUT_SKIP(FILE, SIZE) \
+-   fprintf ((FILE), "%s"HOST_WIDE_INT_PRINT_UNSIGNED"\n",\
++   fprintf ((FILE), "%s" HOST_WIDE_INT_PRINT_UNSIGNED "\n",\
+ 	    SKIP_ASM_OP, (SIZE))
+ 
+ /* This is how to store into the string LABEL
+@@ -163,7 +163,7 @@ Boston, MA 02111-1307, USA.  */
+     {									\
+       fprintf ((FILE), "%s", COMMON_ASM_OP);				\
+       assemble_name ((FILE), (NAME));					\
+-      fprintf ((FILE), ","HOST_WIDE_INT_PRINT_UNSIGNED",%u\n",		\
++      fprintf ((FILE), "," HOST_WIDE_INT_PRINT_UNSIGNED ",%u\n",		\
+ 	       (SIZE), (ALIGN) / BITS_PER_UNIT);			\
+     }									\
+   while (0)
+diff --git a/gcc/llvm-types.cpp b/gcc/llvm-types.cpp
+index c8f64ae..09f53a0 100644
+--- a/gcc/llvm-types.cpp
++++ b/gcc/llvm-types.cpp
+@@ -577,15 +577,15 @@ const Type *TypeConverter::ConvertType(tree orig_type) {
+       const_cast<OpaqueType*>(OT)->refineAbstractTypeTo(Actual);
+       return GET_TYPE_LLVM(type);
+     } else {
+-      const Type *Ty;
++      const Type *_Ty;
+ 
+       // If we are converting a struct, and if we haven't converted the pointee
+       // type, add this pointer to PointersToReresolve and return an opaque*.
+       if (ConvertingStruct) {
+         // If the pointee type has not already been converted to LLVM, create 
+         // a new opaque type and remember it in the database.
+-        Ty = GET_TYPE_LLVM(TYPE_MAIN_VARIANT(TREE_TYPE(type)));
+-        if (Ty == 0) {
++        _Ty = GET_TYPE_LLVM(TYPE_MAIN_VARIANT(TREE_TYPE(type)));
++        if (_Ty == 0) {
+           PointersToReresolve.push_back(type);
+           return TypeDB.setType(type, PointerType::get(OpaqueType::get()));
+         }
+@@ -600,12 +600,12 @@ const Type *TypeConverter::ConvertType(tree orig_type) {
+         // If we're not in a struct, just call ConvertType.  If it has already 
+         // been converted, this will return the precomputed value, otherwise 
+         // this will compute and return the new type.
+-        Ty = ConvertType(TREE_TYPE(type));
++        _Ty = ConvertType(TREE_TYPE(type));
+       }
+     
+-      if (Ty->getTypeID() == Type::VoidTyID) 
+-        Ty = Type::Int8Ty;  // void* -> sbyte*
+-      return TypeDB.setType(type, PointerType::get(Ty));
++      if (_Ty->getTypeID() == Type::VoidTyID) 
++        _Ty = Type::Int8Ty;  // void* -> sbyte*
++      return TypeDB.setType(type, PointerType::get(_Ty));
+     }
+    
+   case METHOD_TYPE:
+diff --git a/gcc/toplev.h b/gcc/toplev.h
+index 1a44901..713e03a 100644
+--- a/gcc/toplev.h
++++ b/gcc/toplev.h
+@@ -174,17 +174,20 @@ extern int floor_log2                  (unsigned HOST_WIDE_INT);
+ #  define CTZ_HWI __builtin_ctz
+ # endif
+ 
+-extern inline int
+-floor_log2 (unsigned HOST_WIDE_INT x)
+-{
+-  return x ? HOST_BITS_PER_WIDE_INT - 1 - (int) CLZ_HWI (x) : -1;
+-}
+-
+-extern inline int
+-exact_log2 (unsigned HOST_WIDE_INT x)
+-{
+-  return x == (x & -x) && x ? (int) CTZ_HWI (x) : -1;
+-}
++//extern inline int
++//floor_log2 (unsigned HOST_WIDE_INT x)
++//{
++//  return x ? HOST_BITS_PER_WIDE_INT - 1 - (int) CLZ_HWI (x) : -1;
++//}
++
++extern int floor_log2 (unsigned HOST_WIDE_INT x);
++
++//extern inline int
++//exact_log2 (unsigned HOST_WIDE_INT x)
++//{
++//  return x == (x & -x) && x ? (int) CTZ_HWI (x) : -1;
++//}
++extern int exact_log2 (unsigned HOST_WIDE_INT x);
+ #endif /* GCC_VERSION >= 3004 */
+ 
+ /* Functions used to get and set GCC's notion of in what directory

@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -O2'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 569960176225
+  options:
+bug:
+  id: 'C12'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in set_value_handle, at tree-vn.c:179'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

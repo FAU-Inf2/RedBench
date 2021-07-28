@@ -1,0 +1,32 @@
+{% from '../../_templates/Dockerfiles/apt.j2' import apt %}
+
+{% set v = variables[env("CONTEXT")] %}
+
+
+FROM {{ v.from }}
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+# oracle
+
+{% call apt() %}z3{% endcall %}
+
+
+# get release
+
+ARG release
+RUN git clone --branch ${release} --depth 1 \
+  https://github.com/Z3Prover/z3.git ${release}
+
+
+# build z3
+
+ENV CXXFLAGS="{{ v.cxxflags }}"
+
+RUN cd ${release} && python scripts/mk_make.py \
+  --prefix=$(realpath ../install)
+RUN cd ${release}/build && make
+RUN cd ${release}/build && make install
+
+RUN rm -rf ${release}
+
+WORKDIR /data

@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -O0'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 230360782260
+  options:
+bug:
+  id: 'C2'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in c_common_type, at c-typeck.c:531'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

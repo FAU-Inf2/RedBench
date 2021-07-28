@@ -1,0 +1,24 @@
+#!/bin/sh
+
+readonly this_dir="$(dirname "$0")"
+readonly docker_dir="$this_dir/../../../../docker"
+
+readonly test_script="$this_dir/test.sh"
+
+if [ $# -gt 0 ] ; then
+  readonly test_program="$1"
+else
+  readonly test_program="$this_dir/prog.{{ language }}"
+fi
+
+[ -f "$test_program" ] || {
+  echo "[!] file '$test_program' does not exist"
+  exit 2
+}
+
+"$docker_dir/{{ language }}/{{ compiler.name }}/run_test.sh" \
+    "{{ compiler.version }}" \
+    "$test_script" "$test_program"
+exitcode=$?
+
+exit $exitcode

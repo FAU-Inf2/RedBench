@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.2.0'
+  options: '--std=c99 -w -O1'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 124370
+  options:
+bug:
+  id: 'C22'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in reload_cse_simplify_operands, at postreload.c:393'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

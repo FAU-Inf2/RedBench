@@ -1,0 +1,12 @@
+## gmp (download)
+
+ARG gmp_release={{ v.gmp_release }}
+
+RUN wget \
+  "https://gmplib.org/download/gmp/gmp-${gmp_release}.tar.xz.sig"
+
+RUN wget --progress=dot:giga \
+  "https://gmplib.org/download/gmp/gmp-${gmp_release}.tar.xz"
+
+RUN gpg --keyserver keyserver.ubuntu.com --recv-key '343C 2FF0 FBEE 5EC2 EDBE F399 F359 9FF8 28C6 7298' && \
+  gpg --verify "gmp-${gmp_release}.tar.xz.sig" "gmp-${gmp_release}.tar.xz"

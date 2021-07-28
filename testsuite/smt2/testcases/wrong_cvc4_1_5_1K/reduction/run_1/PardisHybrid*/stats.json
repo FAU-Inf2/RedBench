@@ -1,0 +1,54 @@
+{
+	"timestamp": "2021-03-10T14:21:28.124828Z",
+	"reducer": "Pardis",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/PardisHybrid*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "PardisHybrid*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 1,
+			"verificationTime": 0,
+			"size": 1188,
+			"tokens": 484,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 43,
+			"timestamp": 713,
+			"verificationTime": 50,
+			"size": 1127,
+			"tokens": 474,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 127,
+			"timestamp": 2011,
+			"verificationTime": 56,
+			"size": 1123,
+			"tokens": 473,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 127,
+			"timestamp": 2013,
+			"timeInTestFunction": 1929
+		},
+		{
+			"checks": 250,
+			"timestamp": 3901,
+			"timeInTestFunction": 3774
+		}
+	],
+	"totalTime": 3902,
+	"wallTime": 3914,
+	"timeInTestFunction": 3774,
+	"numberOfChecks": 250
+}

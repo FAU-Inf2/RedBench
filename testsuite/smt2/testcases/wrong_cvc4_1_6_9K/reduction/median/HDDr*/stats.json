@@ -1,0 +1,155 @@
+{
+  "timestamp": "2021-03-10T14:34:58.582086Z",
+  "reducer": "HDDr",
+  "configuration": {
+    "in": "/data/prog.smt2",
+    "outDir": "/output_tmpfs/HDDr*",
+    "grammar": "/reducer/grammars/smt2.txt",
+    "reduce": "HDDr*",
+    "test": "/data/test.sh",
+    "cache": true
+  },
+  "steps": [
+    {
+      "index": 0,
+      "timestamp": 0,
+      "verificationTime": 0,
+      "size": 9575,
+      "tokens": 2883,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 2,
+      "timestamp": 68,
+      "verificationTime": 30,
+      "size": 4135,
+      "tokens": 1252,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 3,
+      "timestamp": 101,
+      "verificationTime": 32,
+      "size": 2116,
+      "tokens": 639,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 4,
+      "timestamp": 133,
+      "verificationTime": 31,
+      "size": 871,
+      "tokens": 250,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 14,
+      "timestamp": 272,
+      "verificationTime": 31,
+      "size": 769,
+      "tokens": 219,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 26,
+      "timestamp": 439,
+      "verificationTime": 30,
+      "size": 558,
+      "tokens": 180,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 29,
+      "timestamp": 489,
+      "verificationTime": 29,
+      "size": 495,
+      "tokens": 159,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 46,
+      "timestamp": 722,
+      "verificationTime": 32,
+      "size": 429,
+      "tokens": 137,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 51,
+      "timestamp": 814,
+      "verificationTime": 30,
+      "size": 399,
+      "tokens": 129,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 106,
+      "timestamp": 1664,
+      "verificationTime": 31,
+      "size": 383,
+      "tokens": 125,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 115,
+      "timestamp": 1807,
+      "verificationTime": 32,
+      "size": 346,
+      "tokens": 113,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 117,
+      "timestamp": 1855,
+      "verificationTime": 31,
+      "size": 335,
+      "tokens": 113,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 121,
+      "timestamp": 1934,
+      "verificationTime": 31,
+      "size": 299,
+      "tokens": 101,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 122,
+      "timestamp": 1968,
+      "verificationTime": 32,
+      "size": 227,
+      "tokens": 78,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 184,
+      "timestamp": 2970,
+      "verificationTime": 32,
+      "size": 222,
+      "tokens": 74,
+      "result": "SUCCESSFUL"
+    }
+  ],
+  "iterations": [
+    {
+      "checks": 137,
+      "timestamp": 2199,
+      "timeInTestFunction": 2123
+    },
+    {
+      "checks": 207,
+      "timestamp": 3306,
+      "timeInTestFunction": 3207
+    },
+    {
+      "checks": 251,
+      "timestamp": 3984,
+      "timeInTestFunction": 3866
+    }
+  ],
+  "totalTime": 4010,
+  "wallTime": 4055,
+  "timeInTestFunction": 3872,
+  "numberOfChecks": 251
+}

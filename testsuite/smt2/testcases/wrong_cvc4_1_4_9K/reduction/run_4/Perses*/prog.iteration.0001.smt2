@@ -1,0 +1,21 @@
+(set-logic QF_UFBV)
+(declare-fun eP9 () (_ BitVec 3))
+(declare-fun m_bj4__ ((_ BitVec 1)) Bool)
+(assert (m_bj4__ (bvnot #b1))
+)
+(assert
+  (m_bj4__ #b1)
+)
+(define-fun jb_8 ((qT4VP0 Bool) (s03_ Bool) (hm_ Bool)) Bool true
+)
+(declare-fun tzKJ81 () (_ BitVec 3))
+(declare-fun q4vph4 () (_ BitVec 1))
+(declare-fun l_Zo1YO () Bool)
+(assert
+  (let ((vOyxW_ l_Zo1YO) (sY_ true)) (xor true (m_bj4__ q4vph4) (jb_8 sY_ sY_ l_Zo1YO) (bvult eP9 tzKJ81)))
+)
+(check-sat)
+(assert
+  (xor (=> l_Zo1YO false) l_Zo1YO (m_bj4__ q4vph4))
+)
+(check-sat)

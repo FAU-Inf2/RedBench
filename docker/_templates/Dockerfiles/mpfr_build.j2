@@ -1,0 +1,11 @@
+## mpfr (build)
+
+ARG mpfr_release={{ v.mpfr_release }}
+
+RUN tar xvf "mpfr-${mpfr_release}.tar.xz"
+RUN cd "mpfr-${mpfr_release}" && ./configure \
+  --disable-shared \
+  --with-gmp=$(realpath ../install) \
+  --prefix=$(realpath ../install)
+RUN cd "mpfr-${mpfr_release}" && make
+RUN cd "mpfr-${mpfr_release}" && make install

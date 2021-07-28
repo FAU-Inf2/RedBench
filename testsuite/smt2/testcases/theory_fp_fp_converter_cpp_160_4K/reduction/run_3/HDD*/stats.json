@@ -1,0 +1,126 @@
+{
+	"timestamp": "2021-04-12T23:39:09.142330Z",
+	"reducer": "HDD",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/HDD*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "HDD*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 3936,
+			"tokens": 985,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 2,
+			"timestamp": 220,
+			"verificationTime": 187,
+			"size": 1869,
+			"tokens": 432,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 3,
+			"timestamp": 394,
+			"verificationTime": 173,
+			"size": 917,
+			"tokens": 220,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 11,
+			"timestamp": 572,
+			"verificationTime": 114,
+			"size": 645,
+			"tokens": 149,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 21,
+			"timestamp": 760,
+			"verificationTime": 105,
+			"size": 582,
+			"tokens": 135,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 22,
+			"timestamp": 870,
+			"verificationTime": 108,
+			"size": 523,
+			"tokens": 121,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 36,
+			"timestamp": 1110,
+			"verificationTime": 115,
+			"size": 378,
+			"tokens": 85,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 37,
+			"timestamp": 1226,
+			"verificationTime": 115,
+			"size": 370,
+			"tokens": 81,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 40,
+			"timestamp": 1368,
+			"verificationTime": 114,
+			"size": 248,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 45,
+			"timestamp": 1546,
+			"verificationTime": 113,
+			"size": 217,
+			"tokens": 48,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 82,
+			"timestamp": 2224,
+			"verificationTime": 117,
+			"size": 201,
+			"tokens": 47,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 105,
+			"timestamp": 2757,
+			"verificationTime": 120,
+			"size": 178,
+			"tokens": 46,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 153,
+			"timestamp": 3648,
+			"timeInTestFunction": 3574
+		},
+		{
+			"checks": 178,
+			"timestamp": 4050,
+			"timeInTestFunction": 3956
+		}
+	],
+	"totalTime": 4052,
+	"wallTime": 4086,
+	"timeInTestFunction": 3956,
+	"numberOfChecks": 178
+}

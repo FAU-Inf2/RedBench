@@ -1,0 +1,16 @@
+---
+language: smt2
+name: yices
+binary: yices-smt2
+default_options: --incremental
+
+versions:
+  - '2.2.0'
+  - '2.3.0'
+  - '2.4.0'
+  - '2.6.0'
+
+variables:
+  context:
+    from: 'fau-i2-act/debian-9'
+    gmp_release: '6.1.2'

@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.8'
+  options: '--incremental --strings-exp --lang smt2'
+generator:
+  name: 'starsmith'
+  version: 'fe7eb77'
+  seed: 53
+  options: 'smt_strings'
+bug:
+  id: 'C91'
+  compile:
+    exitcode: 134
+    output: 'src/theory/strings/regexp_entail.cpp:319'
+    wrong_output: False

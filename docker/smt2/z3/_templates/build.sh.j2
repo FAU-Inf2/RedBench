@@ -1,0 +1,25 @@
+{% extends '_templates/build.sh.j2' %}
+
+
+{% block release %}
+RELEASE="z3-${ARG_RELEASE}"
+if [ "$ARG_RELEASE" = "4.8.5" ] ; then
+    # release was named wrong
+    RELEASE="Z3-${ARG_RELEASE}"
+fi
+{% endblock %}
+
+
+{% block context %}
+major_version=${ARG_RELEASE%%.*}  # 4 for 4.5.0
+tmp=${ARG_RELEASE#*.}  # 5.0 for 4.5.0
+minor_version=${tmp%%.*}  # 5 for 4.5.0
+if [ $major_version -eq 4 -a $minor_version -le 4 ] ; then
+    CONTEXT="context_4.1_4.4"
+elif [ $major_version -eq 4 ] ; then
+    CONTEXT="context_4.5_"
+else
+    >&2 echo "[i] only z3 version 4 is currently supported"
+    exit 2
+fi
+{% endblock %}

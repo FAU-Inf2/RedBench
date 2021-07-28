@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.2'
+  options: '--std=c99 -w -Iruntime -O0'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 584252352314
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C77'
+  compile:
+    exitcode:
+    output: '/lib/CodeGen/SelectionDAG/SelectionDAG.cpp:476:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

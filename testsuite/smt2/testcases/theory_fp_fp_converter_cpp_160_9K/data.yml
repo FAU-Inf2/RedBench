@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.8'
+  options: '--incremental --fp-exp --lang smt2'
+generator:
+  name: 'starsmith'
+  version: '67fe7a8'
+  seed: '073648488866'
+  options: 'smt_fp'
+bug:
+  id: 'C88'
+  compile:
+    exitcode:
+    output: '/src/theory/fp/fp_converter.cpp:160'
+    wrong_output: False

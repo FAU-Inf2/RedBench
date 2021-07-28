@@ -1,0 +1,11 @@
+(set-logic QF_UFSLIA)
+(declare-fun w8f () String)
+(declare-fun rX4t () String)
+(declare-fun x_F (Bool) String)
+(declare-fun p0L () String)
+(declare-fun faZ___ () String)
+(declare-fun nes_ () Bool)
+(assert
+  (xor (str.suffixof (str.replace "" (let ((a 0)) (str.from_int 0)) (ite (str.<= p0L (_ char #x3d)) "}}i7R___;{1}_f;s}___}{7}3H2lv_4__+q0e;_;;{r0Oq2;Q7Z}{jc}_0_2{{bf{.9._/9;{;" (x_F false)))0) (str.contains (str.from_code 0) (str.replace_re (str.++ faZ___ w8f) (ite nes_ re.none (re.comp (re.range (_ char #xc) (_ char #x2c)))) (let ((a 0)) rX4t))))
+)
+(check-sat)

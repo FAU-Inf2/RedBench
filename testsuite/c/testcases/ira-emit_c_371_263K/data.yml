@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.4.0'
+  options: '--std=c99 -w -O1'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 342150652496
+  options:
+bug:
+  id: 'C42'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in store_can_be_removed_p, at ira-emit.c:371'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

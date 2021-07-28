@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.2'
+  options: '--std=c99 -w -O0'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 7543
+  options:
+bug:
+  id: 'C77'
+  compile:
+    exitcode:
+    output: '/lib/CodeGen/SelectionDAG/SelectionDAG.cpp:476:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

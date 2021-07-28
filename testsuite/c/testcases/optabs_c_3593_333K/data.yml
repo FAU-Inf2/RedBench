@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -O2'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 1084121
+  options:
+bug:
+  id: 'C11'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in emit_cmp_and_jump_insns, at optabs.c:3593'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

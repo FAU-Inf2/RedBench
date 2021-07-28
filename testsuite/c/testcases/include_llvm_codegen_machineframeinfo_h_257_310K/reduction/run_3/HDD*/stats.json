@@ -1,0 +1,227 @@
+{
+	"timestamp": "2021-04-11T21:54:47.540263Z",
+	"reducer": "HDD",
+	"configuration": {
+		"in": "/data/prog.c",
+		"outDir": "/output_tmpfs/HDD*",
+		"grammar": "/reducer/grammars/c.txt",
+		"reduce": "HDD*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 317209,
+			"tokens": 156787,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 2,
+			"timestamp": 323,
+			"verificationTime": 147,
+			"size": 114406,
+			"tokens": 57036,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 3,
+			"timestamp": 410,
+			"verificationTime": 81,
+			"size": 60330,
+			"tokens": 30046,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 13,
+			"timestamp": 1071,
+			"verificationTime": 106,
+			"size": 59682,
+			"tokens": 29732,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 24,
+			"timestamp": 1477,
+			"verificationTime": 43,
+			"size": 21854,
+			"tokens": 10868,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 58,
+			"timestamp": 2705,
+			"verificationTime": 45,
+			"size": 21849,
+			"tokens": 10868,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 61,
+			"timestamp": 2840,
+			"verificationTime": 45,
+			"size": 21843,
+			"tokens": 10867,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 77,
+			"timestamp": 3387,
+			"verificationTime": 28,
+			"size": 1416,
+			"tokens": 611,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 89,
+			"timestamp": 3695,
+			"verificationTime": 28,
+			"size": 1410,
+			"tokens": 611,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 101,
+			"timestamp": 4043,
+			"verificationTime": 27,
+			"size": 775,
+			"tokens": 276,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 121,
+			"timestamp": 4658,
+			"verificationTime": 25,
+			"size": 347,
+			"tokens": 81,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 130,
+			"timestamp": 4897,
+			"verificationTime": 25,
+			"size": 305,
+			"tokens": 81,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 133,
+			"timestamp": 4978,
+			"verificationTime": 27,
+			"size": 270,
+			"tokens": 72,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 146,
+			"timestamp": 5339,
+			"verificationTime": 26,
+			"size": 250,
+			"tokens": 69,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 150,
+			"timestamp": 5469,
+			"verificationTime": 25,
+			"size": 225,
+			"tokens": 65,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 155,
+			"timestamp": 5630,
+			"verificationTime": 25,
+			"size": 201,
+			"tokens": 61,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 168,
+			"timestamp": 6086,
+			"verificationTime": 26,
+			"size": 186,
+			"tokens": 58,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 174,
+			"timestamp": 6299,
+			"verificationTime": 28,
+			"size": 169,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 181,
+			"timestamp": 6650,
+			"verificationTime": 25,
+			"size": 165,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 183,
+			"timestamp": 6737,
+			"verificationTime": 26,
+			"size": 160,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 193,
+			"timestamp": 7101,
+			"verificationTime": 24,
+			"size": 152,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 210,
+			"timestamp": 7719,
+			"verificationTime": 26,
+			"size": 150,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 212,
+			"timestamp": 7806,
+			"verificationTime": 27,
+			"size": 147,
+			"tokens": 52,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 281,
+			"timestamp": 9963,
+			"verificationTime": 24,
+			"size": 98,
+			"tokens": 40,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 279,
+			"timestamp": 9879,
+			"timeInTestFunction": 9360
+		},
+		{
+			"checks": 405,
+			"timestamp": 13679,
+			"timeInTestFunction": 13114
+		},
+		{
+			"checks": 405,
+			"timestamp": 13706,
+			"timeInTestFunction": 13114
+		}
+	],
+	"totalTime": 13706,
+	"wallTime": 14771,
+	"timeInTestFunction": 13114,
+	"numberOfChecks": 405
+}

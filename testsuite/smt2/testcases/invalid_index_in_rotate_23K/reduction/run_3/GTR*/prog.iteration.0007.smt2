@@ -1,0 +1,13 @@
+
+(set-logic  QF_UFBV)
+(assert
+(let ((e5 (_ bv30 5)))
+(let ((e7 ((_ extract 1 0) e5)))
+(let ((e14 e7))
+(let ((e31 1))
+(let ((e61 ((_ rotate_right 5) e14)))
+(let ((e189 bvult))
+(let ((e317 bvugt))
+(let ((e445 and))
+(let ((e573 e572))
+e578))))))))))

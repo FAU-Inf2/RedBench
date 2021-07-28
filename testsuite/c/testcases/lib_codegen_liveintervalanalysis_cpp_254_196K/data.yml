@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.2'
+  options: '--std=c99 -w -Iruntime -O3'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 112852449150
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C74'
+  compile:
+    exitcode:
+    output: '/lib/CodeGen/LiveIntervalAnalysis.cpp:254:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

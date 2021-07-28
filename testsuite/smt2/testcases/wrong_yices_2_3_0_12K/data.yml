@@ -1,0 +1,20 @@
+---
+language: 'smt2'
+compiler:
+  name: 'yices'
+  version: '2.3.0'
+  options: '--incremental'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 35965
+  options: 'smt'
+bug:
+  id: 'W14'
+  compile:
+    exitcode: '0'
+    output:
+    wrong_output: True
+    oracle:
+      binary: '/usr/bin/z3'
+      options: '-smt2'

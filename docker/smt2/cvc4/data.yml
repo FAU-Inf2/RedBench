@@ -1,0 +1,22 @@
+---
+language: smt2
+name: cvc4
+binary: cvc4
+default_options: --incremental --lang smt2
+
+versions:
+  - '1.0'
+  - '1.1'
+  - '1.2'
+  - '1.3'
+  - '1.4'
+  - '1.5'
+  - '1.6'
+  - '1.7'
+  - '1.8'
+
+variables:
+  context_1.0_1.6:
+    use_prebuilt: True
+  context_1.7_:
+    use_prebuilt: False

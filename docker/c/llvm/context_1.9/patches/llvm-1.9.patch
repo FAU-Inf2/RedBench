@@ -1,0 +1,988 @@
+diff --git a/include/llvm/ADT/SmallVector.h b/include/llvm/ADT/SmallVector.h
+index 94817ed..af4a1c2 100644
+--- a/include/llvm/ADT/SmallVector.h
++++ b/include/llvm/ADT/SmallVector.h
+@@ -210,7 +210,7 @@ public:
+   template<typename ItTy>
+   iterator insert(iterator I, ItTy From, ItTy To) {
+     if (I == End) {  // Important special case for empty vector.
+-      append(From, To);
++      this->append(From, To);
+       return end()-1;
+     }
+     
+@@ -229,7 +229,7 @@ public:
+     // we already reserved space, we know that this won't reallocate the vector.
+     if (size() >= NumToInsert) {
+       T *OldEnd = End;
+-      append(End-NumToInsert, End);
++      this->append(End-NumToInsert, End);
+       
+       // Copy the existing elements that get replaced.
+       std::copy(I, OldEnd-NumToInsert, I+NumToInsert);
+@@ -420,7 +420,7 @@ public:
+   
+   template<typename ItTy>
+   SmallVector(ItTy S, ItTy E) : SmallVectorImpl<T>(NumTsAvailable) {
+-    append(S, E);
++    this->append(S, E);
+   }
+   
+   SmallVector(const SmallVector &RHS) : SmallVectorImpl<T>(NumTsAvailable) {
+diff --git a/include/llvm/ADT/ilist b/include/llvm/ADT/ilist
+index 1d01b63..8791cde 100644
+--- a/include/llvm/ADT/ilist
++++ b/include/llvm/ADT/ilist
+@@ -40,6 +40,7 @@
+ 
+ #include "llvm/ADT/iterator"
+ #include <cassert>
++#include <cstddef>
+ 
+ namespace llvm {
+ 
+@@ -236,8 +237,8 @@ public:
+   typedef std::reverse_iterator<iterator>  reverse_iterator;
+ 
+   iplist() : Head(Traits::createSentinel()), Tail(Head) {
+-    setNext(Head, 0);
+-    setPrev(Head, 0);
++    this->setNext(Head, 0);
++    this->setPrev(Head, 0);
+   }
+   ~iplist() { clear(); Traits::destroySentinel(Tail); }
+ 
+@@ -269,11 +270,11 @@ public:
+   }
+   reference back() {
+     assert(!empty() && "Called back() on empty list!");
+-    return *getPrev(Tail);
++    return *this->getPrev(Tail);
+   }
+   const_reference back() const {
+     assert(!empty() && "Called back() on empty list!");
+-    return *getPrev(Tail);
++    return *this->getPrev(Tail);
+   }
+ 
+   void swap(iplist &RHS) {
+@@ -283,33 +284,33 @@ public:
+   }
+ 
+   iterator insert(iterator where, NodeTy *New) {
+-    NodeTy *CurNode = where.getNodePtrUnchecked(), *PrevNode = getPrev(CurNode);
+-    setNext(New, CurNode);
+-    setPrev(New, PrevNode);
++    NodeTy *CurNode = where.getNodePtrUnchecked(), *PrevNode = this->getPrev(CurNode);
++    this->setNext(New, CurNode);
++    this->setPrev(New, PrevNode);
+ 
+     if (PrevNode)
+-      setNext(PrevNode, New);
++      this->setNext(PrevNode, New);
+     else
+       Head = New;
+-    setPrev(CurNode, New);
++    this->setPrev(CurNode, New);
+ 
+-    addNodeToList(New);  // Notify traits that we added a node...
++    this->addNodeToList(New);  // Notify traits that we added a node...
+     return New;
+   }
+ 
+   NodeTy *remove(iterator &IT) {
+     assert(IT != end() && "Cannot remove end of list!");
+     NodeTy *Node = &*IT;
+-    NodeTy *NextNode = getNext(Node);
+-    NodeTy *PrevNode = getPrev(Node);
++    NodeTy *NextNode = this->getNext(Node);
++    NodeTy *PrevNode = this->getPrev(Node);
+ 
+     if (PrevNode)
+-      setNext(PrevNode, NextNode);
++      this->setNext(PrevNode, NextNode);
+     else
+       Head = NextNode;
+-    setPrev(NextNode, PrevNode);
++    this->setPrev(NextNode, PrevNode);
+     IT = NextNode;
+-    removeNodeFromList(Node);  // Notify traits that we removed a node...
++    this->removeNodeFromList(Node);  // Notify traits that we removed a node...
+     return Node;
+   }
+ 
+@@ -333,30 +334,30 @@ private:
+     assert(first != last && "Should be checked by callers");
+     if (position != last) {
+       // Remove [first, last) from its old position.
+-      NodeTy *First = &*first, *Prev = getPrev(First);
+-      NodeTy *Next = last.getNodePtrUnchecked(), *Last = getPrev(Next);
++      NodeTy *First = &*first, *Prev = this->getPrev(First);
++      NodeTy *Next = last.getNodePtrUnchecked(), *Last = this->getPrev(Next);
+       if (Prev)
+-        setNext(Prev, Next);
++        this->setNext(Prev, Next);
+       else
+         L2.Head = Next;
+-      setPrev(Next, Prev);
++      this->setPrev(Next, Prev);
+ 
+       // Splice [first, last) into its new position.
+       NodeTy *PosNext = position.getNodePtrUnchecked();
+-      NodeTy *PosPrev = getPrev(PosNext);
++      NodeTy *PosPrev = this->getPrev(PosNext);
+ 
+       // Fix head of list...
+       if (PosPrev)
+-        setNext(PosPrev, First);
++        this->setNext(PosPrev, First);
+       else
+         Head = First;
+-      setPrev(First, PosPrev);
++      this->setPrev(First, PosPrev);
+ 
+       // Fix end of list...
+-      setNext(Last, PosNext);
+-      setPrev(PosNext, Last);
++      this->setNext(Last, PosNext);
++      this->setPrev(PosNext, Last);
+ 
+-      transferNodesFromList(L2, First, PosNext);
++      this->transferNodesFromList(L2, First, PosNext);
+     }
+   }
+ 
+diff --git a/include/llvm/CodeGen/MachinePassRegistry.h b/include/llvm/CodeGen/MachinePassRegistry.h
+index 64d364e..956db4d 100644
+--- a/include/llvm/CodeGen/MachinePassRegistry.h
++++ b/include/llvm/CodeGen/MachinePassRegistry.h
+@@ -130,7 +130,7 @@ public:
+     // Add existing passes to option.
+     for (RegistryClass *Node = RegistryClass::getList();
+          Node; Node = Node->getNext()) {
+-      addLiteralOption(Node->getName(),
++      this->addLiteralOption(Node->getName(),
+                       (typename RegistryClass::FunctionPassCtor)Node->getCtor(),
+                       Node->getDescription());
+     }
+diff --git a/include/llvm/CodeGen/SelectionDAGNodes.h b/include/llvm/CodeGen/SelectionDAGNodes.h
+index 1ed4dc4..481d247 100644
+--- a/include/llvm/CodeGen/SelectionDAGNodes.h
++++ b/include/llvm/CodeGen/SelectionDAGNodes.h
+@@ -1459,7 +1459,7 @@ protected:
+   friend class SelectionDAG;
+   StoreSDNode(SDOperand Chain, SDOperand Value, SDOperand Ptr, SDOperand Off,
+               ISD::MemOpAddrMode AM, bool isTrunc, MVT::ValueType SVT,
+-              const Value *SV, int O=0, unsigned Align=0, bool Vol=false)
++              const class Value *SV, int O=0, unsigned Align=0, bool Vol=false)
+     : SDNode(ISD::STORE, Chain, Value, Ptr, Off),
+       AddrMode(AM), IsTruncStore(isTrunc), StoredVT(SVT), SrcValue(SV),
+       SVOffset(O), Alignment(Align), IsVolatile(Vol) {
+diff --git a/include/llvm/Support/CommandLine.h b/include/llvm/Support/CommandLine.h
+index 662c935..0c87b0b 100644
+--- a/include/llvm/Support/CommandLine.h
++++ b/include/llvm/Support/CommandLine.h
+@@ -775,8 +775,8 @@ class opt : public Option,
+        typename ParserClass::parser_data_type();
+     if (Parser.parse(*this, ArgName, Arg, Val))
+       return true;                            // Parse error!
+-    setValue(Val);
+-    setPosition(pos);
++    this->setValue(Val);
++    this->setPosition(pos);
+     return false;
+   }
+ 
+@@ -914,7 +914,7 @@ template<class DataType>
+ class list_storage<DataType, bool> : public std::vector<DataType> {
+ public:
+   template<class T>
+-  void addValue(const T &V) { push_back(V); }
++  void addValue(const T &V) { this->push_back(V); }
+ };
+ 
+ 
+@@ -940,8 +940,8 @@ class list : public Option, public list_storage<DataType, Storage> {
+       typename ParserClass::parser_data_type();
+     if (Parser.parse(*this, ArgName, Arg, Val))
+       return true;  // Parse Error!
+-    addValue(Val);
+-    setPosition(pos);
++    this->addValue(Val);
++    this->setPosition(pos);
+     Positions.push_back(pos);
+     return false;
+   }
+@@ -1123,7 +1123,7 @@ class bits : public Option, public bits_storage<DataType, Storage> {
+     if (Parser.parse(*this, ArgName, Arg, Val))
+       return true;  // Parse Error!
+     addValue(Val);
+-    setPosition(pos);
++    this->setPosition(pos);
+     Positions.push_back(pos);
+     return false;
+   }
+diff --git a/include/llvm/Target/SubtargetFeature.h b/include/llvm/Target/SubtargetFeature.h
+index 89e6efe..9dbddfc 100644
+--- a/include/llvm/Target/SubtargetFeature.h
++++ b/include/llvm/Target/SubtargetFeature.h
+@@ -21,6 +21,7 @@
+ #include <string>
+ #include <vector>
+ #include <iosfwd>
++#include <cstring>
+ #include "llvm/Support/DataTypes.h"
+ 
+ namespace llvm {
+diff --git a/include/llvm/Use.h b/include/llvm/Use.h
+index c88d41f..911b342 100644
+--- a/include/llvm/Use.h
++++ b/include/llvm/Use.h
+@@ -18,6 +18,7 @@
+ 
+ #include "llvm/Support/Casting.h"
+ #include "llvm/ADT/iterator"
++#include <cstddef>
+ 
+ namespace llvm {
+ 
+diff --git a/lib/Analysis/BasicAliasAnalysis.cpp b/lib/Analysis/BasicAliasAnalysis.cpp
+index 0e7c244..4d99f87 100644
+--- a/lib/Analysis/BasicAliasAnalysis.cpp
++++ b/lib/Analysis/BasicAliasAnalysis.cpp
+@@ -26,6 +26,7 @@
+ #include "llvm/Support/GetElementPtrTypeIterator.h"
+ #include "llvm/Support/ManagedStatic.h"
+ #include <algorithm>
++#include <cstring>
+ using namespace llvm;
+ 
+ namespace {
+diff --git a/lib/AsmParser/ParserInternals.h b/lib/AsmParser/ParserInternals.h
+index 9c94505..3ce98b3 100644
+--- a/lib/AsmParser/ParserInternals.h
++++ b/lib/AsmParser/ParserInternals.h
+@@ -21,6 +21,7 @@
+ #include "llvm/Instructions.h"
+ #include "llvm/Assembly/Parser.h"
+ #include "llvm/ADT/StringExtras.h"
++#include <cstring>
+ 
+ 
+ // Global variables exported from the lexer...
+@@ -36,7 +37,7 @@ void set_scan_string (const char * str);
+ 
+ // Globals exported by the parser...
+ extern char* llvmAsmtext;
+-extern int   llvmAsmleng;
++extern unsigned long   llvmAsmleng;
+ 
+ namespace llvm {
+ 
+diff --git a/lib/Bytecode/Archive/ArchiveInternals.h b/lib/Bytecode/Archive/ArchiveInternals.h
+index 86d2827..42c40e0 100644
+--- a/lib/Bytecode/Archive/ArchiveInternals.h
++++ b/lib/Bytecode/Archive/ArchiveInternals.h
+@@ -17,6 +17,7 @@
+ #include "llvm/Bytecode/Archive.h"
+ #include "llvm/System/TimeValue.h"
+ #include "llvm/ADT/StringExtras.h"
++#include <cstring>
+ 
+ #define ARFILE_MAGIC "!<arch>\n"                   ///< magic string
+ #define ARFILE_MAGIC_LEN (sizeof(ARFILE_MAGIC)-1)  ///< length of magic string
+diff --git a/lib/Bytecode/Reader/ReaderWrappers.cpp b/lib/Bytecode/Reader/ReaderWrappers.cpp
+index c120672..9d795f1 100644
+--- a/lib/Bytecode/Reader/ReaderWrappers.cpp
++++ b/lib/Bytecode/Reader/ReaderWrappers.cpp
+@@ -23,6 +23,7 @@
+ #include <cerrno>
+ #include <iostream>
+ #include <memory>
++#include <cstring>
+ 
+ using namespace llvm;
+ 
+diff --git a/lib/CodeGen/AsmPrinter.cpp b/lib/CodeGen/AsmPrinter.cpp
+index 9454fe5..c739e25 100644
+--- a/lib/CodeGen/AsmPrinter.cpp
++++ b/lib/CodeGen/AsmPrinter.cpp
+@@ -26,6 +26,7 @@
+ #include "llvm/Target/TargetMachine.h"
+ #include <iostream>
+ #include <cerrno>
++#include <cstring>
+ using namespace llvm;
+ 
+ AsmPrinter::AsmPrinter(std::ostream &o, TargetMachine &tm,
+diff --git a/lib/CodeGen/MachineInstr.cpp b/lib/CodeGen/MachineInstr.cpp
+index a47293e..d925afc 100644
+--- a/lib/CodeGen/MachineInstr.cpp
++++ b/lib/CodeGen/MachineInstr.cpp
+@@ -18,6 +18,7 @@
+ #include "llvm/Target/MRegisterInfo.h"
+ #include "llvm/Support/LeakDetector.h"
+ #include <iostream>
++#include <cstring>
+ 
+ using namespace llvm;
+ 
+diff --git a/lib/CodeGen/PHIElimination.cpp b/lib/CodeGen/PHIElimination.cpp
+index c107d1a..e3354bf 100644
+--- a/lib/CodeGen/PHIElimination.cpp
++++ b/lib/CodeGen/PHIElimination.cpp
+@@ -288,7 +288,7 @@ void PNE::LowerAtomicPHINode(MachineBasicBlock &MBB,
+       
+         // Check that no other terminators use values.
+ #ifndef NDEBUG
+-        for (MachineBasicBlock::iterator TI = next(I); TI != opBlock.end();
++        for (MachineBasicBlock::iterator TI = llvm::next(I); TI != opBlock.end();
+              ++TI) {
+           assert(!InstructionUsesRegister(TI, SrcReg) &&
+                  "Terminator instructions cannot use virtual registers unless"
+diff --git a/lib/CodeGen/RegAllocSimple.cpp b/lib/CodeGen/RegAllocSimple.cpp
+index 088be47..71d4356 100644
+--- a/lib/CodeGen/RegAllocSimple.cpp
++++ b/lib/CodeGen/RegAllocSimple.cpp
+@@ -214,7 +214,7 @@ void RegAllocSimple::AllocateBasicBlock(MachineBasicBlock &MBB) {
+ 
+               physReg = MI->getOperand(TiedOp).getReg();
+             }
+-            spillVirtReg(MBB, next(MI), virtualReg, physReg);
++            spillVirtReg(MBB, llvm::next(MI), virtualReg, physReg);
+           } else {
+             physReg = reloadVirtReg(MBB, MI, virtualReg);
+             Virt2PhysRegMap[virtualReg] = physReg;
+diff --git a/lib/CodeGen/SelectionDAG/TargetLowering.cpp b/lib/CodeGen/SelectionDAG/TargetLowering.cpp
+index 05abe96..342af6e 100644
+--- a/lib/CodeGen/SelectionDAG/TargetLowering.cpp
++++ b/lib/CodeGen/SelectionDAG/TargetLowering.cpp
+@@ -19,6 +19,7 @@
+ #include "llvm/CodeGen/SelectionDAG.h"
+ #include "llvm/ADT/StringExtras.h"
+ #include "llvm/Support/MathExtras.h"
++#include <cstring>
+ using namespace llvm;
+ 
+ TargetLowering::TargetLowering(TargetMachine &tm)
+diff --git a/lib/CodeGen/VirtRegMap.cpp b/lib/CodeGen/VirtRegMap.cpp
+index 7ee139f..59edcd4 100644
+--- a/lib/CodeGen/VirtRegMap.cpp
++++ b/lib/CodeGen/VirtRegMap.cpp
+@@ -187,7 +187,7 @@ bool SimpleSpiller::runOnMachineFunction(MachineFunction &MF, VirtRegMap &VRM) {
+               }
+ 
+               if (MO.isDef()) {
+-                MRI.storeRegToStackSlot(MBB, next(MII), PhysReg, StackSlot, RC);
++                MRI.storeRegToStackSlot(MBB, llvm::next(MII), PhysReg, StackSlot, RC);
+                 ++NumStores;
+               }
+             }
+@@ -860,8 +860,8 @@ void LocalSpiller::RewriteMBB(MachineBasicBlock &MBB, VirtRegMap &VRM) {
+ 
+         PhysRegsUsed[PhysReg] = true;
+         ReusedOperands.markClobbered(PhysReg);
+-        MRI->storeRegToStackSlot(MBB, next(MII), PhysReg, StackSlot, RC);
+-        DEBUG(std::cerr << "Store:\t" << *next(MII));
++        MRI->storeRegToStackSlot(MBB, llvm::next(MII), PhysReg, StackSlot, RC);
++        DEBUG(std::cerr << "Store:\t" << *llvm::next(MII));
+         MI.getOperand(i).setReg(PhysReg);
+ 
+         // Check to see if this is a noop copy.  If so, eliminate the
+@@ -885,7 +885,7 @@ void LocalSpiller::RewriteMBB(MachineBasicBlock &MBB, VirtRegMap &VRM) {
+           MBB.erase(LastStore);
+           VRM.RemoveFromFoldedVirtMap(LastStore);
+         }
+-        LastStore = next(MII);
++        LastStore = llvm::next(MII);
+ 
+         // If the stack slot value was previously available in some other
+         // register, change it now.  Otherwise, make the register available,
+diff --git a/lib/ExecutionEngine/ExecutionEngine.cpp b/lib/ExecutionEngine/ExecutionEngine.cpp
+index f61369c..4dbd968 100644
+--- a/lib/ExecutionEngine/ExecutionEngine.cpp
++++ b/lib/ExecutionEngine/ExecutionEngine.cpp
+@@ -25,6 +25,7 @@
+ #include "llvm/System/DynamicLibrary.h"
+ #include "llvm/Target/TargetData.h"
+ #include <iostream>
++#include <cstring>
+ using namespace llvm;
+ 
+ namespace {
+@@ -267,10 +268,10 @@ ExecutionEngine *ExecutionEngine::create(ModuleProvider *MP,
+   if (EE) {
+     // Make sure we can resolve symbols in the program as well. The zero arg
+     // to the function tells DynamicLibrary to load the program, not a library.
+-    try {
++    //try {
+       sys::DynamicLibrary::LoadLibraryPermanently(0);
+-    } catch (...) {
+-    }
++    //} catch (...) {
++    //}
+   }
+ 
+   return EE;
+diff --git a/lib/ExecutionEngine/Interpreter/Execution.cpp b/lib/ExecutionEngine/Interpreter/Execution.cpp
+index cf41abd..530fc1a 100644
+--- a/lib/ExecutionEngine/Interpreter/Execution.cpp
++++ b/lib/ExecutionEngine/Interpreter/Execution.cpp
+@@ -21,6 +21,7 @@
+ #include "llvm/ADT/Statistic.h"
+ #include "llvm/Support/Debug.h"
+ #include <cmath>  // For fmod
++#include <cstring>
+ using namespace llvm;
+ 
+ namespace {
+diff --git a/lib/ExecutionEngine/Interpreter/ExternalFunctions.cpp b/lib/ExecutionEngine/Interpreter/ExternalFunctions.cpp
+index 67fa983..c55e077 100644
+--- a/lib/ExecutionEngine/Interpreter/ExternalFunctions.cpp
++++ b/lib/ExecutionEngine/Interpreter/ExternalFunctions.cpp
+@@ -27,6 +27,7 @@
+ #include <cmath>
+ #include <csignal>
+ #include <map>
++#include <cstring>
+ using std::vector;
+ 
+ using namespace llvm;
+@@ -464,7 +465,7 @@ GenericValue lle_X_scanf(FunctionType *M, const vector<GenericValue> &args) {
+ 
+ // int clock(void) - Profiling implementation
+ GenericValue lle_i_clock(FunctionType *M, const vector<GenericValue> &Args) {
+-  extern unsigned int clock(void);
++  extern clock_t clock(void);
+   GenericValue GV; GV.IntVal = clock();
+   return GV;
+ }
+diff --git a/lib/ExecutionEngine/Interpreter/Interpreter.cpp b/lib/ExecutionEngine/Interpreter/Interpreter.cpp
+index 78e7a3c..ea9e249 100644
+--- a/lib/ExecutionEngine/Interpreter/Interpreter.cpp
++++ b/lib/ExecutionEngine/Interpreter/Interpreter.cpp
+@@ -18,6 +18,7 @@
+ #include "llvm/DerivedTypes.h"
+ #include "llvm/Module.h"
+ #include "llvm/ModuleProvider.h"
++#include <cstring>
+ using namespace llvm;
+ 
+ static struct RegisterInterp {
+@@ -33,11 +34,11 @@ namespace llvm {
+ ///
+ ExecutionEngine *Interpreter::create(ModuleProvider *MP) {
+   Module *M;
+-  try {
++  //try {
+     M = MP->materializeModule();
+-  } catch (...) {
+-    return 0;  // error materializing the module.
+-  }
++  //} catch (...) {
++  //  return 0;  // error materializing the module.
++  //}
+   
+   if (M->getEndianness() == Module::AnyEndianness) {
+     int Test = 0;
+diff --git a/lib/ExecutionEngine/JIT/JITEmitter.cpp b/lib/ExecutionEngine/JIT/JITEmitter.cpp
+index 911aa8c..de80c66 100644
+--- a/lib/ExecutionEngine/JIT/JITEmitter.cpp
++++ b/lib/ExecutionEngine/JIT/JITEmitter.cpp
+@@ -31,6 +31,7 @@
+ #include "llvm/System/Memory.h"
+ #include <algorithm>
+ #include <iostream>
++#include <cstring>
+ using namespace llvm;
+ 
+ namespace {
+diff --git a/lib/Support/CommandLine.cpp b/lib/Support/CommandLine.cpp
+index 39d388c..a0fdcef 100644
+--- a/lib/Support/CommandLine.cpp
++++ b/lib/Support/CommandLine.cpp
+@@ -28,23 +28,24 @@
+ #include <cstdlib>
+ #include <cerrno>
+ #include <cstring>
++#include <climits>
+ using namespace llvm;
+ using namespace cl;
+ 
+ //===----------------------------------------------------------------------===//
+ // Template instantiations and anchors.
+ //
+-TEMPLATE_INSTANTIATION(class basic_parser<bool>);
+-TEMPLATE_INSTANTIATION(class basic_parser<int>);
+-TEMPLATE_INSTANTIATION(class basic_parser<unsigned>);
+-TEMPLATE_INSTANTIATION(class basic_parser<double>);
+-TEMPLATE_INSTANTIATION(class basic_parser<float>);
+-TEMPLATE_INSTANTIATION(class basic_parser<std::string>);
+-
+-TEMPLATE_INSTANTIATION(class opt<unsigned>);
+-TEMPLATE_INSTANTIATION(class opt<int>);
+-TEMPLATE_INSTANTIATION(class opt<std::string>);
+-TEMPLATE_INSTANTIATION(class opt<bool>);
++TEMPLATE_INSTANTIATION(class llvm::cl::basic_parser<bool>);
++TEMPLATE_INSTANTIATION(class llvm::cl::basic_parser<int>);
++TEMPLATE_INSTANTIATION(class llvm::cl::basic_parser<unsigned>);
++TEMPLATE_INSTANTIATION(class llvm::cl::basic_parser<double>);
++TEMPLATE_INSTANTIATION(class llvm::cl::basic_parser<float>);
++TEMPLATE_INSTANTIATION(class llvm::cl::basic_parser<std::string>);
++
++TEMPLATE_INSTANTIATION(class llvm::cl::opt<unsigned>);
++TEMPLATE_INSTANTIATION(class llvm::cl::opt<int>);
++TEMPLATE_INSTANTIATION(class llvm::cl::opt<std::string>);
++TEMPLATE_INSTANTIATION(class llvm::cl::opt<bool>);
+ 
+ void Option::anchor() {}
+ void basic_parser_impl::anchor() {}
+diff --git a/lib/Support/Compressor.cpp b/lib/Support/Compressor.cpp
+index 990a6b4..a954dba 100644
+--- a/lib/Support/Compressor.cpp
++++ b/lib/Support/Compressor.cpp
+@@ -18,6 +18,7 @@
+ #include <cassert>
+ #include <string>
+ #include <ostream>
++#include <cstring>
+ #include "bzip2/bzlib.h"
+ using namespace llvm;
+ 
+diff --git a/lib/Support/FoldingSet.cpp b/lib/Support/FoldingSet.cpp
+index bcab5b3..e6630f7 100644
+--- a/lib/Support/FoldingSet.cpp
++++ b/lib/Support/FoldingSet.cpp
+@@ -17,6 +17,7 @@
+ #include "llvm/ADT/FoldingSet.h"
+ #include "llvm/Support/MathExtras.h"
+ #include <cassert>
++#include <cstring>
+ using namespace llvm;
+ 
+ //===----------------------------------------------------------------------===//
+diff --git a/lib/Support/Statistic.cpp b/lib/Support/Statistic.cpp
+index 56bbfe9..11b1f19 100644
+--- a/lib/Support/Statistic.cpp
++++ b/lib/Support/Statistic.cpp
+@@ -26,6 +26,7 @@
+ #include <sstream>
+ #include <iostream>
+ #include <algorithm>
++#include <cstring>
+ using namespace llvm;
+ 
+ // GetLibSupportInfoOutputFile - Return a file stream to print our output on...
+@@ -33,7 +34,7 @@ namespace llvm { extern std::ostream *GetLibSupportInfoOutputFile(); }
+ 
+ unsigned StatisticBase::NumStats = 0;
+ 
+-TEMPLATE_INSTANTIATION(class Statistic<unsigned>);
++TEMPLATE_INSTANTIATION(class llvm::Statistic<unsigned>);
+ 
+ // -stats - Command line option to cause transformations to emit stats about
+ // what they did.
+diff --git a/lib/Support/StringExtras.cpp b/lib/Support/StringExtras.cpp
+index 8ce3715..81ecfc4 100644
+--- a/lib/Support/StringExtras.cpp
++++ b/lib/Support/StringExtras.cpp
+@@ -12,6 +12,7 @@
+ //===----------------------------------------------------------------------===//
+ 
+ #include "llvm/ADT/StringExtras.h"
++#include <cstring>
+ using namespace llvm;
+ 
+ /// getToken - This function extracts one token from source, ignoring any
+diff --git a/lib/System/Path.cpp b/lib/System/Path.cpp
+index 1246038..c205a68 100644
+--- a/lib/System/Path.cpp
++++ b/lib/System/Path.cpp
+@@ -15,6 +15,7 @@
+ #include "llvm/Config/config.h"
+ #include <cassert>
+ #include <ostream>
++#include <cstring>
+ using namespace llvm;
+ using namespace sys;
+ 
+diff --git a/lib/Target/CBackend/Writer.cpp b/lib/Target/CBackend/Writer.cpp
+index c820fca..ce7e0d3 100644
+--- a/lib/Target/CBackend/Writer.cpp
++++ b/lib/Target/CBackend/Writer.cpp
+@@ -43,6 +43,7 @@
+ #include <iostream>
+ #include <ios>
+ #include <sstream>
++#include <cstring>
+ using namespace llvm;
+ 
+ namespace {
+@@ -171,7 +172,7 @@ namespace {
+     //
+     static const AllocaInst *isDirectAlloca(const Value *V) {
+       const AllocaInst *AI = dyn_cast<AllocaInst>(V);
+-      if (!AI) return false;
++      if (!AI) return 0;
+       if (AI->isArrayAllocation())
+         return 0;   // FIXME: we can also inline fixed size array allocas!
+       if (AI->getParent() != &AI->getParent()->getParent()->getEntryBlock())
+@@ -1675,7 +1676,7 @@ void CWriter::visitSwitchInst(SwitchInst &SI) {
+     BasicBlock *Succ = cast<BasicBlock>(SI.getOperand(i+1));
+     printPHICopiesForSuccessor (SI.getParent(), Succ, 2);
+     printBranchToBlock(SI.getParent(), Succ, 2);
+-    if (Function::iterator(Succ) == next(Function::iterator(SI.getParent())))
++    if (Function::iterator(Succ) == llvm::next(Function::iterator(SI.getParent())))
+       Out << "    break;\n";
+   }
+   Out << "  }\n";
+@@ -1689,7 +1690,7 @@ bool CWriter::isGotoCodeNecessary(BasicBlock *From, BasicBlock *To) {
+   /// FIXME: This should be reenabled, but loop reordering safe!!
+   return true;
+ 
+-  if (next(Function::iterator(From)) != Function::iterator(To))
++  if (llvm::next(Function::iterator(From)) != Function::iterator(To))
+     return true;  // Not the direct successor, we need a goto.
+ 
+   //isa<SwitchInst>(From->getTerminator())
+diff --git a/lib/Target/X86/X86ATTAsmPrinter.cpp b/lib/Target/X86/X86ATTAsmPrinter.cpp
+index 4e47b6a..b59a307 100755
+--- a/lib/Target/X86/X86ATTAsmPrinter.cpp
++++ b/lib/Target/X86/X86ATTAsmPrinter.cpp
+@@ -24,6 +24,7 @@
+ #include "llvm/Target/TargetAsmInfo.h"
+ #include "llvm/Target/TargetOptions.h"
+ #include <iostream>
++#include <cstring>
+ using namespace llvm;
+ 
+ /// getSectionForFunction - Return the section that we should emit the
+diff --git a/lib/Target/X86/X86FloatingPoint.cpp b/lib/Target/X86/X86FloatingPoint.cpp
+index 5a10d97..1280b99 100644
+--- a/lib/Target/X86/X86FloatingPoint.cpp
++++ b/lib/Target/X86/X86FloatingPoint.cpp
+@@ -260,7 +260,7 @@ bool FPS::processBasicBlock(MachineFunction &MF, MachineBasicBlock &BB) {
+         while (Start != BB.begin() && prior(Start) != PrevI) --Start;
+         std::cerr << "Inserted instructions:\n\t";
+         Start->print(std::cerr, &MF.getTarget());
+-        while (++Start != next(I));
++        while (++Start != llvm::next(I));
+       }
+       dumpStack();
+     );
+diff --git a/lib/Target/X86/X86ISelDAGToDAG.cpp b/lib/Target/X86/X86ISelDAGToDAG.cpp
+index 14b05cd..9fbd426 100644
+--- a/lib/Target/X86/X86ISelDAGToDAG.cpp
++++ b/lib/Target/X86/X86ISelDAGToDAG.cpp
+@@ -37,6 +37,7 @@
+ #include <iostream>
+ #include <queue>
+ #include <set>
++#include <cstring>
+ using namespace llvm;
+ 
+ //===----------------------------------------------------------------------===//
+diff --git a/lib/Target/X86/X86IntelAsmPrinter.cpp b/lib/Target/X86/X86IntelAsmPrinter.cpp
+index 91e1478..bc4f983 100755
+--- a/lib/Target/X86/X86IntelAsmPrinter.cpp
++++ b/lib/Target/X86/X86IntelAsmPrinter.cpp
+@@ -23,6 +23,7 @@
+ #include "llvm/Support/Mangler.h"
+ #include "llvm/Target/TargetAsmInfo.h"
+ #include "llvm/Target/TargetOptions.h"
++#include <cstring>
+ using namespace llvm;
+ 
+ std::string X86IntelAsmPrinter::getSectionForFunction(const Function &F) const {
+diff --git a/lib/Transforms/IPO/SimplifyLibCalls.cpp b/lib/Transforms/IPO/SimplifyLibCalls.cpp
+index af11709..18de92b 100644
+--- a/lib/Transforms/IPO/SimplifyLibCalls.cpp
++++ b/lib/Transforms/IPO/SimplifyLibCalls.cpp
+@@ -29,6 +29,7 @@
+ #include "llvm/Support/Debug.h"
+ #include "llvm/Target/TargetData.h"
+ #include "llvm/Transforms/IPO.h"
++#include <cstring>
+ using namespace llvm;
+ 
+ namespace {
+diff --git a/lib/Transforms/Scalar/CondPropagate.cpp b/lib/Transforms/Scalar/CondPropagate.cpp
+index 703105f..94e9d90 100644
+--- a/lib/Transforms/Scalar/CondPropagate.cpp
++++ b/lib/Transforms/Scalar/CondPropagate.cpp
+@@ -128,7 +128,7 @@ void CondProp::SimplifyPredecessors(BranchInst *BI) {
+   if (!PN->hasOneUse()) return;
+ 
+   BasicBlock *BB = BI->getParent();
+-  if (&*BB->begin() != PN || &*next(BB->begin()) != BI)
++  if (&*BB->begin() != PN || &*llvm::next(BB->begin()) != BI)
+     return;
+ 
+   // Ok, we have this really simple case, walk the PHI operands, looking for
+@@ -161,7 +161,7 @@ void CondProp::SimplifyPredecessors(SwitchInst *SI) {
+   if (!PN->hasOneUse()) return;
+ 
+   BasicBlock *BB = SI->getParent();
+-  if (&*BB->begin() != PN || &*next(BB->begin()) != SI)
++  if (&*BB->begin() != PN || &*llvm::next(BB->begin()) != SI)
+     return;
+ 
+   bool RemovedPreds = false;
+diff --git a/lib/Transforms/Scalar/InstructionCombining.cpp b/lib/Transforms/Scalar/InstructionCombining.cpp
+index f00be24..5b66a01 100644
+--- a/lib/Transforms/Scalar/InstructionCombining.cpp
++++ b/lib/Transforms/Scalar/InstructionCombining.cpp
+@@ -53,6 +53,7 @@
+ #include "llvm/ADT/STLExtras.h"
+ #include <algorithm>
+ #include <iostream>
++#include <cstring>
+ using namespace llvm;
+ using namespace llvm::PatternMatch;
+ 
+@@ -568,7 +569,7 @@ static User *dyn_castGetElementPtr(Value *V) {
+   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(V))
+     if (CE->getOpcode() == Instruction::GetElementPtr)
+       return cast<User>(V);
+-  return false;
++  return 0;
+ }
+ 
+ // AddOne, SubOne - Add or subtract a constant one from an integer constant...
+@@ -1262,15 +1263,15 @@ Value *InstCombiner::SimplifyDemandedVectorElts(Value *V, uint64_t DemandedElts,
+   if (!V->hasOneUse()) {    // Other users may use these bits.
+     if (Depth != 0) {       // Not at the root.
+       // TODO: Just compute the UndefElts information recursively.
+-      return false;
++      return 0;
+     }
+-    return false;
++    return 0;
+   } else if (Depth == 10) {        // Limit search depth.
+-    return false;
++    return 0;
+   }
+   
+   Instruction *I = dyn_cast<Instruction>(V);
+-  if (!I) return false;        // Only analyze instructions.
++  if (!I) return 0;        // Only analyze instructions.
+   
+   bool MadeChange = false;
+   uint64_t UndefElts2;
+@@ -8571,7 +8572,7 @@ bool InstCombiner::runOnFunction(Function &F) {
+         // only has us as a predecessors (we'd have to split the critical edge
+         // otherwise), we can keep going.
+         if (UserIsSuccessor && !isa<PHINode>(I->use_back()) &&
+-            next(pred_begin(UserParent)) == pred_end(UserParent))
++            llvm::next(pred_begin(UserParent)) == pred_end(UserParent))
+           // Okay, the CFG is simple enough, try to sink this instruction.
+           Changed |= TryToSinkInstruction(I, UserParent);
+       }
+diff --git a/lib/Transforms/Scalar/LoopUnswitch.cpp b/lib/Transforms/Scalar/LoopUnswitch.cpp
+index a91d295..3a3708e 100644
+--- a/lib/Transforms/Scalar/LoopUnswitch.cpp
++++ b/lib/Transforms/Scalar/LoopUnswitch.cpp
+@@ -134,7 +134,7 @@ bool LoopUnswitch::runOnFunction(Function &F) {
+ /// Otherwise, return null.
+ static Value *FindLIVLoopCondition(Value *Cond, Loop *L, bool &Changed) {
+   // Constants should be folded, not unswitched on!
+-  if (isa<Constant>(Cond)) return false;
++  if (isa<Constant>(Cond)) return 0;
+   
+   // TODO: Handle: br (VARIANT|INVARIANT).
+   // TODO: Hoist simple expressions out of loops.
+diff --git a/lib/VMCore/BasicBlock.cpp b/lib/VMCore/BasicBlock.cpp
+index afdd79e..780bb47 100644
+--- a/lib/VMCore/BasicBlock.cpp
++++ b/lib/VMCore/BasicBlock.cpp
+@@ -57,7 +57,7 @@ iplist<Instruction> &ilist_traits<Instruction>::getList(BasicBlock *BB) {
+ 
+ // Explicit instantiation of SymbolTableListTraits since some of the methods
+ // are not in the public header file...
+-template class SymbolTableListTraits<Instruction, BasicBlock, Function>;
++template class llvm::SymbolTableListTraits<Instruction, BasicBlock, Function>;
+ 
+ 
+ BasicBlock::BasicBlock(const std::string &Name, Function *Parent,
+diff --git a/lib/VMCore/Constants.cpp b/lib/VMCore/Constants.cpp
+index bcfd387..39ed54a 100644
+--- a/lib/VMCore/Constants.cpp
++++ b/lib/VMCore/Constants.cpp
+@@ -26,6 +26,17 @@
+ #include <iostream>
+ using namespace llvm;
+ 
++static char getValType(ConstantAggregateZero *CPZ);
++static std::vector<Constant*> getValType(ConstantArray *CA);
++static std::vector<Constant*> getValType(ConstantStruct *CS);
++static std::vector<Constant*> getValType(ConstantPacked *CP);
++static char getValType(ConstantPointerNull *);
++static char getValType(UndefValue *);
++
++typedef std::pair<unsigned, std::vector<Constant*> > ExprMapKeyType;
++
++static ExprMapKeyType getValType(ConstantExpr *CE);
++
+ //===----------------------------------------------------------------------===//
+ //                              Constant Class
+ //===----------------------------------------------------------------------===//
+@@ -1320,7 +1331,7 @@ void UndefValue::destroyConstant() {
+ 
+ //---- ConstantExpr::get() implementations...
+ //
+-typedef std::pair<unsigned, std::vector<Constant*> > ExprMapKeyType;
++//typedef std::pair<unsigned, std::vector<Constant*> > ExprMapKeyType;
+ 
+ namespace llvm {
+   template<>
+diff --git a/lib/VMCore/Function.cpp b/lib/VMCore/Function.cpp
+index 641cb9f..426f68b 100644
+--- a/lib/VMCore/Function.cpp
++++ b/lib/VMCore/Function.cpp
+@@ -44,8 +44,8 @@ iplist<Argument> &ilist_traits<Argument>::getList(Function *F) {
+ 
+ // Explicit instantiations of SymbolTableListTraits since some of the methods
+ // are not in the public header file...
+-template class SymbolTableListTraits<Argument, Function, Function>;
+-template class SymbolTableListTraits<BasicBlock, Function, Function>;
++template class llvm::SymbolTableListTraits<Argument, Function, Function>;
++template class llvm::SymbolTableListTraits<BasicBlock, Function, Function>;
+ 
+ //===----------------------------------------------------------------------===//
+ // Argument Implementation
+diff --git a/lib/VMCore/Module.cpp b/lib/VMCore/Module.cpp
+index 7dcd44c..8242efe 100644
+--- a/lib/VMCore/Module.cpp
++++ b/lib/VMCore/Module.cpp
+@@ -55,8 +55,8 @@ iplist<GlobalVariable> &ilist_traits<GlobalVariable>::getList(Module *M) {
+ 
+ // Explicit instantiations of SymbolTableListTraits since some of the methods
+ // are not in the public header file.
+-template class SymbolTableListTraits<GlobalVariable, Module, Module>;
+-template class SymbolTableListTraits<Function, Module, Module>;
++template class llvm::SymbolTableListTraits<GlobalVariable, Module, Module>;
++template class llvm::SymbolTableListTraits<Function, Module, Module>;
+ 
+ //===----------------------------------------------------------------------===//
+ // Primitive Module methods.
+diff --git a/projects/Stacker/lib/compiler/StackerCompiler.cpp b/projects/Stacker/lib/compiler/StackerCompiler.cpp
+index a859223..b9aa776 100644
+--- a/projects/Stacker/lib/compiler/StackerCompiler.cpp
++++ b/projects/Stacker/lib/compiler/StackerCompiler.cpp
+@@ -28,12 +28,13 @@
+ #include "StackerCompiler.h"
+ #include "StackerParser.h"
+ #include <string>
++#include <cstring>
+ 
+ // Lexer/Parser defined variables and functions
+ extern std::FILE *Stackerin;
+ extern int Stackerlineno;
+ extern char* Stackertext;
+-extern int Stackerleng;
++extern unsigned long Stackerleng;
+ extern int Stackerparse();
+ 
+ StackerCompiler* StackerCompiler::TheInstance = 0;
+diff --git a/projects/Stacker/lib/compiler/StackerCompiler.h b/projects/Stacker/lib/compiler/StackerCompiler.h
+index ef09cdb..a0008ce 100644
+--- a/projects/Stacker/lib/compiler/StackerCompiler.h
++++ b/projects/Stacker/lib/compiler/StackerCompiler.h
+@@ -30,7 +30,7 @@ using namespace llvm;
+ extern std::FILE *Stackerin;
+ extern int Stackerlineno;
+ extern char* Stackertext;
+-extern int Stackerleng;
++extern unsigned long Stackerleng;
+ 
+ /// @brief This class provides the Compiler for the Stacker language.
+ ///
+diff --git a/tools/gccld/GenerateCode.cpp b/tools/gccld/GenerateCode.cpp
+index 2e81d38..0bc9764 100644
+--- a/tools/gccld/GenerateCode.cpp
++++ b/tools/gccld/GenerateCode.cpp
+@@ -27,6 +27,7 @@
+ #include "llvm/Transforms/Scalar.h"
+ #include "llvm/Support/SystemUtils.h"
+ #include "llvm/Support/CommandLine.h"
++#include <cstring>
+ 
+ using namespace llvm;
+ 
+diff --git a/tools/llvm-ld/Optimize.cpp b/tools/llvm-ld/Optimize.cpp
+index 29423a7..8365120 100644
+--- a/tools/llvm-ld/Optimize.cpp
++++ b/tools/llvm-ld/Optimize.cpp
+@@ -24,6 +24,7 @@
+ #include "llvm/Transforms/Scalar.h"
+ #include "llvm/Support/PassNameParser.h"
+ #include "llvm/Support/PluginLoader.h"
++#include <memory>
+ using namespace llvm;
+ 
+ // Pass Name Options as generated by the PassNameParser
+diff --git a/tools/llvm-ld/llvm-ld.cpp b/tools/llvm-ld/llvm-ld.cpp
+index 60fe746..c748949 100644
+--- a/tools/llvm-ld/llvm-ld.cpp
++++ b/tools/llvm-ld/llvm-ld.cpp
+@@ -37,6 +37,7 @@
+ #include <fstream>
+ #include <iostream>
+ #include <memory>
++#include <cstring>
+ 
+ using namespace llvm;
+ 
+diff --git a/tools/llvm2cpp/CppWriter.cpp b/tools/llvm2cpp/CppWriter.cpp
+index 1512af6..2f9517c 100644
+--- a/tools/llvm2cpp/CppWriter.cpp
++++ b/tools/llvm2cpp/CppWriter.cpp
+@@ -29,6 +29,7 @@
+ #include <algorithm>
+ #include <iostream>
+ #include <set>
++#include <cstring>
+ 
+ using namespace llvm;
+ 
+diff --git a/tools/llvmc/llvmc.cpp b/tools/llvmc/llvmc.cpp
+index 3b22149..54626b9 100644
+--- a/tools/llvmc/llvmc.cpp
++++ b/tools/llvmc/llvmc.cpp
+@@ -20,6 +20,7 @@
+ #include "llvm/System/Signals.h"
+ #include "llvm/Support/CommandLine.h"
+ #include <iostream>
++#include <cstring>
+ 
+ using namespace llvm;
+ 
+@@ -342,12 +343,12 @@ int main(int argc, char **argv) {
+ 
+       if (filePos != 0 && (libPos == 0 || filePos < libPos)) {
+         // Add a source file
+-        InpList.push_back(std::make_pair(*fileIt,
++        InpList.push_back(std::make_pair(llvm::sys::Path(*fileIt),
+                                          GetFileType(*fileIt, filePos)));
+         ++fileIt;
+       } else if ( libPos != 0 && (filePos == 0 || libPos < filePos) ) {
+         // Add a library
+-        InpList.push_back(std::make_pair(*libIt++, ""));
++        InpList.push_back(std::make_pair(llvm::sys::Path(*libIt++), ""));
+       }
+       else
+         break; // we're done with the list
+
+diff --git a/lib/Bytecode/Writer/Writer.cpp b/lib/Bytecode/Writer/Writer.cpp
+index 199869c..d1f26aa 100644
+--- a/lib/Bytecode/Writer/Writer.cpp
++++ b/lib/Bytecode/Writer/Writer.cpp
+@@ -1237,7 +1237,7 @@ void llvm::WriteBytecodeToFile(const Module *M, std::ostream &Out,
+
+   // Make sure that std::cout is put into binary mode for systems
+   // that care.
+-  if (&Out == std::cout)
++  if (&Out == &std::cout)
+     sys::Program::ChangeStdoutToBinary();
+
+   // Create a vector of unsigned char for the bytecode output. We

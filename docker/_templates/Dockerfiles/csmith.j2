@@ -1,0 +1,9 @@
+FROM fau-i2-act/debian-10 as csmith-builder
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+ARG csmithversion="csmith-2.3.0"
+ARG csmithurl="https://github.com/csmith-project/csmith.git"
+
+RUN git clone --branch "${csmithversion}" --depth 1 \
+  "${csmithurl}" /data/csmith
+RUN cd /data/csmith && ./configure && make

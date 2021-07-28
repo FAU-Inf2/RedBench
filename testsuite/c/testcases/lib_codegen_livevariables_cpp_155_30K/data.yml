@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.1'
+  options: '--std=c99 -w -Iruntime -O3'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 451924829926
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C64'
+  compile:
+    exitcode:
+    output: '/lib/CodeGen/LiveVariables.cpp:155:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

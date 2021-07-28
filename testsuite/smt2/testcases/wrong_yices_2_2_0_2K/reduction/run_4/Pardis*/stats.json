@@ -1,0 +1,134 @@
+{
+	"timestamp": "2021-04-14T14:06:38.365Z",
+	"reducer": "Pardis",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/Pardis*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "Pardis*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 1,
+			"verificationTime": 0,
+			"size": 2540,
+			"tokens": 1068,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 68,
+			"timestamp": 987,
+			"verificationTime": 34,
+			"size": 2513,
+			"tokens": 1063,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 69,
+			"timestamp": 1021,
+			"verificationTime": 33,
+			"size": 2479,
+			"tokens": 1058,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 213,
+			"timestamp": 3085,
+			"verificationTime": 32,
+			"size": 2475,
+			"tokens": 1057,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 220,
+			"timestamp": 3206,
+			"verificationTime": 35,
+			"size": 2471,
+			"tokens": 1056,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 224,
+			"timestamp": 3282,
+			"verificationTime": 31,
+			"size": 2467,
+			"tokens": 1055,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 228,
+			"timestamp": 3359,
+			"verificationTime": 32,
+			"size": 2463,
+			"tokens": 1054,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 229,
+			"timestamp": 3389,
+			"verificationTime": 29,
+			"size": 2459,
+			"tokens": 1053,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 230,
+			"timestamp": 3419,
+			"verificationTime": 29,
+			"size": 2455,
+			"tokens": 1052,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 231,
+			"timestamp": 3451,
+			"verificationTime": 31,
+			"size": 2451,
+			"tokens": 1051,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 237,
+			"timestamp": 3557,
+			"verificationTime": 32,
+			"size": 2447,
+			"tokens": 1050,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 240,
+			"timestamp": 3619,
+			"verificationTime": 33,
+			"size": 2443,
+			"tokens": 1049,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 241,
+			"timestamp": 3649,
+			"verificationTime": 29,
+			"size": 2439,
+			"tokens": 1048,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 241,
+			"timestamp": 3650,
+			"timeInTestFunction": 3491
+		},
+		{
+			"checks": 469,
+			"timestamp": 6939,
+			"timeInTestFunction": 6660
+		}
+	],
+	"totalTime": 6941,
+	"wallTime": 7023,
+	"timeInTestFunction": 6660,
+	"numberOfChecks": 469
+}

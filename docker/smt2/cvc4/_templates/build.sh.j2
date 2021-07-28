@@ -1,0 +1,61 @@
+{% extends '_templates/build.sh.j2' %}
+
+
+{% block release %}
+RELEASE="${ARG_RELEASE}"
+{% endblock %}
+
+
+{% block context %}
+major_version=${ARG_RELEASE%%.*}  # 1 for 1.8
+minor_version=${ARG_RELEASE#*.}  # 8 for 1.8
+if [ $major_version -eq 1 -a $minor_version -le 6 ] ; then
+    CONTEXT="context_1.0_1.6"
+else
+    CONTEXT="context_1.7_"
+fi
+{% endblock %}
+
+
+{% block build_args %}
+MD5SUM=""
+
+case "$ARG_RELEASE" in
+  "1.0")
+    MD5SUM="aeef17ebf0ac3a1ce9db2654928f642b"
+    ;;
+  "1.1")
+    MD5SUM="302d9defef3971cdd91079833b7acfb6"
+    ;;
+  "1.2")
+    MD5SUM="815a27f2801c1d596097f7854853194a"
+    ;;
+  "1.3")
+    MD5SUM="6e7d84721f996193aad329e39fb0bdd9"
+    ;;
+  "1.4")
+    MD5SUM="144650cc67aa6ae0104f1dd00591b6e1"
+    ;;
+  "1.5")
+    MD5SUM="1b5b5fb09ceb9c3fd2d66f0fc709650b"
+    ;;
+  "1.6")
+    MD5SUM="c12754460b508d5170568e83d7fb97f5"
+    ;;
+  "1.7")
+    # version 1.7 is built from source
+    ;;
+  "1.8")
+    # version 1.8 is built from source
+    ;;
+  *)
+    echo "[!] unsupported CVC4 version"
+    exit 2
+esac
+
+if [ -n "$MD5SUM" ] ; then
+  BUILD_ARGS="--build-arg md5sum=$MD5SUM"
+else
+  BUILD_ARGS=""
+fi
+{% endblock %}

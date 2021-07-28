@@ -1,0 +1,69 @@
+{% from '../../_templates/Dockerfiles/apt.j2' import apt %}
+
+{% set v = variables[env("CONTEXT")] %}
+
+
+FROM fau-i2-act/debian-10 as cvc4-builder
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+
+{% if v.use_prebuilt %}
+
+# download prebuilt binary
+
+ARG release
+ARG releasefile=cvc4-${release}-x86_64-linux-opt
+ARG md5sum
+
+# download cvc4 binary
+
+RUN wget --progress=dot:giga \
+  -O install/bin/cvc4 \
+  "https://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/${releasefile}"
+RUN actual_md5sum="$(md5sum install/bin/cvc4 | cut -d' ' -f1)" && \
+  if [ "$actual_md5sum" != "${md5sum}" ] ; then \
+    echo "[!] wrong MD5 sum (expected '${md5sum}', but was '$actual_md5sum')" ; \
+    exit 1 ; \
+  fi
+RUN chmod +x install/bin/cvc4
+
+{% else %}
+
+# prerequisites
+
+{% call apt() %}python-toml{% endcall %}
+
+# build cvc4
+
+ARG release
+RUN git clone --branch ${release} --depth 1 \
+  https://github.com/CVC4/CVC4.git ${release}
+
+RUN cd ${release} && ./contrib/get-antlr-3.4
+RUN cd ${release} && ./contrib/get-symfpu
+RUN cd ${release} && ./configure.sh \
+  --assertions \
+  --prefix=$(realpath ../install) \
+  --symfpu
+RUN cd ${release}/build && make
+RUN cd ${release}/build && make install
+
+{% endif %}
+
+
+# -----
+
+FROM fau-i2-act/debian-10
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+# oracle
+
+{% call apt() %}z3{% endcall %}
+
+# cvc4
+
+COPY --from=cvc4-builder /home/user/install /home/user/install
+
+# finish
+
+WORKDIR /data

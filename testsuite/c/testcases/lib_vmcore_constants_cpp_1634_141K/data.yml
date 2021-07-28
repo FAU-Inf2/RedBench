@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.2'
+  options: '--std=c99 -w -O1'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 69053
+  options:
+bug:
+  id: 'C82'
+  compile:
+    exitcode:
+    output: '/lib/VMCore/Constants.cpp:1634:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

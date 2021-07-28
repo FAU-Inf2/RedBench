@@ -1,0 +1,21 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.8'
+  options: '--incremental --lang smt2'
+generator:
+  name: 'fuzzsmt'
+  version: '0.31'
+  seed: 304026475786
+  options: 'QF_AUFBV'
+  source: 'https://github.com/msoos/fuzzsmt'
+bug:
+  id: 'C86'
+  compile:
+    exitcode: '134'
+    output: '/src/theory/rewriter.cpp:291'
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/z3'
+      options: '-smt2'

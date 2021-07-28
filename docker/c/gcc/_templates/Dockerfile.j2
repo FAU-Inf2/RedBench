@@ -1,0 +1,110 @@
+{% from '../../_templates/Dockerfiles/apt.j2' import apt %}
+
+{% set v = variables[env("CONTEXT")] %}
+
+
+{% include '../../_templates/Dockerfiles/csmith.j2' %}
+
+
+# -----
+
+
+FROM fau-i2-act/debian-9 as {{ name }}-downloader
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+
+# download prerequisites
+
+{% include '../../_templates/Dockerfiles/gmp_download.j2' %}
+
+{% include '../../_templates/Dockerfiles/mpfr_download.j2' %}
+
+
+# get release
+
+ARG release
+ARG releasefile="${release}{{ v.release_file_suffix }}"
+ARG downloadurl="https://ftp.gnu.org/gnu/gcc/${release}/${releasefile}"
+
+RUN wget "${downloadurl}.sig"
+RUN wget --progress=dot:giga "${downloadurl}"
+
+RUN gpg --keyserver keyserver.ubuntu.com --recv-key '{{ v.gpg_fingerprint }}' && \
+  gpg --verify "${releasefile}.sig" "${releasefile}"
+
+
+# -----
+
+
+FROM {{ v.from }} as {{ name }}-builder
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+
+# copy downloaded files
+
+ARG gmp_release={{ v.gmp_release }}
+COPY --from={{ name }}-downloader "/home/user/gmp-${gmp_release}.tar.xz" /home/user/
+
+ARG mpfr_release={{ v.mpfr_release }}
+COPY --from={{ name }}-downloader  "/home/user/mpfr-${mpfr_release}.tar.xz" /home/user/
+
+ARG release
+ARG releasefile="${release}{{ v.release_file_suffix }}"
+
+COPY --from={{ name }}-downloader "/home/user/${releasefile}" /home/user/
+
+
+# set up build environment
+
+ENV CC="/usr/bin/gcc"
+ENV CFLAGS="-static"
+
+
+# build prerequisites
+
+{% include '../../_templates/Dockerfiles/gmp_build.j2' %}
+
+{% include '../../_templates/Dockerfiles/mpfr_build.j2' %}
+
+
+# build compiler
+
+RUN tar xvf "${releasefile}"
+
+RUN mkdir build
+
+ENV LIBRARY_PATH=/home/user/install/lib/
+ENV LD_LIBRARY_PATH=/home/user/install/lib/
+RUN cd build && "../${release}/configure" \
+  --disable-multilib \
+  --disable-nls \
+  --disable-shared \
+  --enable-languages=c \
+  --enable-static \
+  --prefix=$(realpath ../install) \
+  --with-gmp=$(realpath ../install) \
+  --with-mpfr=$(realpath ../install)
+RUN cd build && make
+RUN cd build && make install
+
+
+# -----
+
+FROM fau-i2-act/debian-10
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+# frama-c
+
+{% call apt() %}frama-c-base{% endcall %}
+
+# csmith runtime
+
+COPY --from=csmith-builder /data/csmith/runtime /data/runtime
+
+# {{ name }}
+
+COPY --from={{ name }}-builder /home/user/install /home/user/install
+
+# finish
+
+WORKDIR /data

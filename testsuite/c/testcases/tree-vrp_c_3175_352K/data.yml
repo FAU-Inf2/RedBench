@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.1.0'
+  options: '--std=c99 -w -O2'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 142274
+  options:
+bug:
+  id: 'C17'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in compare_name_with_value, at tree-vrp.c:3175'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

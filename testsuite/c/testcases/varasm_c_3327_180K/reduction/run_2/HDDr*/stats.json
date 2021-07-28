@@ -1,0 +1,227 @@
+{
+	"timestamp": "2021-04-10T15:25:23.631415Z",
+	"reducer": "HDDr",
+	"configuration": {
+		"in": "/data/prog.c",
+		"outDir": "/output_tmpfs/HDDr*",
+		"grammar": "/reducer/grammars/c.txt",
+		"reduce": "HDDr*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 183608,
+			"tokens": 90722,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 10,
+			"timestamp": 1157,
+			"verificationTime": 548,
+			"size": 114890,
+			"tokens": 56270,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 21,
+			"timestamp": 2086,
+			"verificationTime": 519,
+			"size": 102898,
+			"tokens": 50053,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 24,
+			"timestamp": 2532,
+			"verificationTime": 324,
+			"size": 71488,
+			"tokens": 34872,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 35,
+			"timestamp": 3259,
+			"verificationTime": 296,
+			"size": 71483,
+			"tokens": 34871,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 40,
+			"timestamp": 3722,
+			"verificationTime": 218,
+			"size": 37662,
+			"tokens": 18235,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 41,
+			"timestamp": 3823,
+			"verificationTime": 99,
+			"size": 10145,
+			"tokens": 4864,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 43,
+			"timestamp": 3976,
+			"verificationTime": 33,
+			"size": 2639,
+			"tokens": 1182,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 46,
+			"timestamp": 4058,
+			"verificationTime": 32,
+			"size": 1112,
+			"tokens": 493,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 85,
+			"timestamp": 5228,
+			"verificationTime": 35,
+			"size": 1101,
+			"tokens": 489,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 97,
+			"timestamp": 5556,
+			"verificationTime": 35,
+			"size": 1093,
+			"tokens": 485,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 119,
+			"timestamp": 6150,
+			"verificationTime": 35,
+			"size": 1044,
+			"tokens": 463,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 132,
+			"timestamp": 6502,
+			"verificationTime": 33,
+			"size": 1021,
+			"tokens": 453,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 141,
+			"timestamp": 6778,
+			"verificationTime": 35,
+			"size": 990,
+			"tokens": 439,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 144,
+			"timestamp": 6857,
+			"verificationTime": 33,
+			"size": 964,
+			"tokens": 429,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 149,
+			"timestamp": 6985,
+			"verificationTime": 35,
+			"size": 950,
+			"tokens": 428,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 151,
+			"timestamp": 7037,
+			"verificationTime": 26,
+			"size": 404,
+			"tokens": 156,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 158,
+			"timestamp": 7243,
+			"verificationTime": 27,
+			"size": 400,
+			"tokens": 156,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 163,
+			"timestamp": 7362,
+			"verificationTime": 26,
+			"size": 393,
+			"tokens": 156,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 167,
+			"timestamp": 7462,
+			"verificationTime": 27,
+			"size": 308,
+			"tokens": 140,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 170,
+			"timestamp": 7564,
+			"verificationTime": 29,
+			"size": 284,
+			"tokens": 137,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 215,
+			"timestamp": 9128,
+			"verificationTime": 26,
+			"size": 279,
+			"tokens": 135,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 216,
+			"timestamp": 9156,
+			"verificationTime": 26,
+			"size": 271,
+			"tokens": 133,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 263,
+			"timestamp": 10771,
+			"verificationTime": 26,
+			"size": 260,
+			"tokens": 129,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 168,
+			"timestamp": 7483,
+			"timeInTestFunction": 6916
+		},
+		{
+			"checks": 283,
+			"timestamp": 11226,
+			"timeInTestFunction": 10592
+		},
+		{
+			"checks": 356,
+			"timestamp": 13682,
+			"timeInTestFunction": 12987
+		}
+	],
+	"totalTime": 13683,
+	"wallTime": 14847,
+	"timeInTestFunction": 12987,
+	"numberOfChecks": 356
+}

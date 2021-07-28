@@ -1,0 +1,227 @@
+{
+	"timestamp": "2021-04-10T19:11:21.511Z",
+	"reducer": "HDDr",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/HDDr*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "HDDr*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 2783,
+			"tokens": 1179,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 20,
+			"timestamp": 154,
+			"verificationTime": 10,
+			"size": 2749,
+			"tokens": 1174,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 22,
+			"timestamp": 168,
+			"verificationTime": 10,
+			"size": 2722,
+			"tokens": 1169,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 35,
+			"timestamp": 282,
+			"verificationTime": 11,
+			"size": 2688,
+			"tokens": 1158,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 44,
+			"timestamp": 382,
+			"verificationTime": 12,
+			"size": 2676,
+			"tokens": 1155,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 69,
+			"timestamp": 667,
+			"verificationTime": 11,
+			"size": 2627,
+			"tokens": 1134,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 72,
+			"timestamp": 702,
+			"verificationTime": 11,
+			"size": 2607,
+			"tokens": 1126,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 78,
+			"timestamp": 772,
+			"verificationTime": 12,
+			"size": 2572,
+			"tokens": 1115,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 81,
+			"timestamp": 807,
+			"verificationTime": 11,
+			"size": 2553,
+			"tokens": 1108,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 83,
+			"timestamp": 831,
+			"verificationTime": 12,
+			"size": 600,
+			"tokens": 247,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 85,
+			"timestamp": 856,
+			"verificationTime": 12,
+			"size": 598,
+			"tokens": 247,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 97,
+			"timestamp": 1003,
+			"verificationTime": 12,
+			"size": 575,
+			"tokens": 240,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 98,
+			"timestamp": 1016,
+			"verificationTime": 11,
+			"size": 548,
+			"tokens": 230,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 99,
+			"timestamp": 1029,
+			"verificationTime": 12,
+			"size": 522,
+			"tokens": 219,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 146,
+			"timestamp": 1598,
+			"verificationTime": 12,
+			"size": 509,
+			"tokens": 215,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 150,
+			"timestamp": 1648,
+			"verificationTime": 12,
+			"size": 508,
+			"tokens": 215,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 203,
+			"timestamp": 2307,
+			"verificationTime": 12,
+			"size": 494,
+			"tokens": 210,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 219,
+			"timestamp": 2506,
+			"verificationTime": 12,
+			"size": 480,
+			"tokens": 205,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 221,
+			"timestamp": 2532,
+			"verificationTime": 12,
+			"size": 467,
+			"tokens": 200,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 225,
+			"timestamp": 2582,
+			"verificationTime": 12,
+			"size": 454,
+			"tokens": 195,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 250,
+			"timestamp": 2815,
+			"verificationTime": 12,
+			"size": 421,
+			"tokens": 184,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 251,
+			"timestamp": 2829,
+			"verificationTime": 12,
+			"size": 387,
+			"tokens": 173,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 255,
+			"timestamp": 2872,
+			"verificationTime": 12,
+			"size": 353,
+			"tokens": 162,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 259,
+			"timestamp": 2916,
+			"verificationTime": 12,
+			"size": 320,
+			"tokens": 151,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 234,
+			"timestamp": 2688,
+			"timeInTestFunction": 2525
+		},
+		{
+			"checks": 362,
+			"timestamp": 4174,
+			"timeInTestFunction": 3938
+		},
+		{
+			"checks": 364,
+			"timestamp": 4224,
+			"timeInTestFunction": 3954
+		}
+	],
+	"totalTime": 4225,
+	"wallTime": 4348,
+	"timeInTestFunction": 3954,
+	"numberOfChecks": 364
+}

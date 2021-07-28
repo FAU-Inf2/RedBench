@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.3.0'
+  options: '--std=c99 -w -O1'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 633031304981
+  options:
+bug:
+  id: 'C33'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in extract_insn, at recog.c:1990'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

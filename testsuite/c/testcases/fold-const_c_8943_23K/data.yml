@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.3.0'
+  options: '--std=c99 -w -O2'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 198284
+  options:
+bug:
+  id: 'C32'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in fold_comparison, at fold-const.c:8943'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

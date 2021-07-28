@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.1'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 409803173704
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C63'
+  compile:
+    exitcode:
+    output: '/lib/Analysis/ScalarEvolution.cpp:2487:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

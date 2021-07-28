@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.3.0'
+  options: '--std=c99 -w -O2'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 1270792
+  options:
+bug:
+  id: 'C36'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in find_or_generate_expression, at tree-ssa-pre.c:2255'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

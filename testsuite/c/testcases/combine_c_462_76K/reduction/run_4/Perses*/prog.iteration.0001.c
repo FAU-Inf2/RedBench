@@ -1,0 +1,14 @@
+#include <stdint.h>
+
+double;
+
+union j_Uq89 {
+  double i_GQK;
+}; g__w(int32_t qCSM) {
+  for (volatile fkf_1_;;) {
+    uint8_t g8__;
+    for (int16_t vF65; --vF65;) {
+      int8_t e__I;(g8__-- *(201.815 >e__I ?fkf_1_ :5945)) /++e__I;
+    }g8__ ?fkf_1_ :19213;
+  }
+}

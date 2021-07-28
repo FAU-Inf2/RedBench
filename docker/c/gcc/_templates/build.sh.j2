@@ -1,0 +1,16 @@
+{% extends '_templates/build.sh.j2' %}
+
+
+{% block context %}
+major_version=${ARG_RELEASE%%.*}  # 4 for 4.4.0
+tmp=${ARG_RELEASE#*.}  # 4.0 for 4.4.0
+minor_version=${tmp%%.*}  # 4 for 4.4.0
+if [ $major_version -eq 4 -a $minor_version -lt 4 ] ; then
+    CONTEXT="context_4.0.0_4.3.0"
+elif [ $major_version -eq 4 ] ; then
+    CONTEXT="context_4.4.0_"
+else
+    >&2 echo "[!] only GCC version 4 is currently supported"
+    exit 2
+fi
+{% endblock %}

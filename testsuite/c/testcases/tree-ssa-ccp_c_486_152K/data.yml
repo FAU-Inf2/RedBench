@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.3.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 861302877047
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C28'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in set_lattice_value, at tree-ssa-ccp.c:486'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

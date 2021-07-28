@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.1.0'
+  options: '--std=c99 -w -O1'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 546576
+  options:
+bug:
+  id: 'C18'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in simplify_cond_and_lookup_avail_expr, at tree-ssa-dom.c:2111'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

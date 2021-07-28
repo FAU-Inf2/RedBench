@@ -1,0 +1,25 @@
+---
+language: c
+name: llvm
+binary: llvm-gcc
+default_options: --std=c99 -w
+
+versions:
+  - '1.9'
+  - '2.0'
+  - '2.1'
+  - '2.2'
+
+variables:
+  context_1.9:
+    from: 'fau-i2-act/ubuntu-16'
+    run_from: 'fau-i2-act/debian-10'
+    gmp_release: '6.1.0'
+    mpfr_release: '3.1.4'
+    release_file_suffix: '.tar.bz2'
+  context_2.0_:
+    from: 'fau-i2-act/ubuntu-16'
+    run_from: 'fau-i2-act/ubuntu-16'
+    gmp_release: '6.1.0'
+    mpfr_release: '3.1.4'
+    release_file_suffix: '.tar.bz2'

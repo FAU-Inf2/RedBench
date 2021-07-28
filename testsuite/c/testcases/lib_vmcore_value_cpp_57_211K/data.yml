@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 151219098454
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C60'
+  compile:
+    exitcode:
+    output: '/lib/VMCore/Value.cpp:57:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

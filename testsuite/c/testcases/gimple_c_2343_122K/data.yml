@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.4.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 259276056744
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C38'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in gimple_rhs_has_side_effects, at gimple.c:2343'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

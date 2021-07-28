@@ -1,0 +1,118 @@
+{
+	"timestamp": "2021-04-16T02:06:16.490255Z",
+	"reducer": "CoarseHDD",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/CoarseHDD*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "CoarseHDD*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 3592,
+			"tokens": 1517,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 20,
+			"timestamp": 330,
+			"verificationTime": 123,
+			"size": 3558,
+			"tokens": 1512,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 22,
+			"timestamp": 464,
+			"verificationTime": 126,
+			"size": 3531,
+			"tokens": 1507,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 374,
+			"timestamp": 5954,
+			"verificationTime": 144,
+			"size": 3527,
+			"tokens": 1506,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 383,
+			"timestamp": 6201,
+			"verificationTime": 128,
+			"size": 3523,
+			"tokens": 1505,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 389,
+			"timestamp": 6441,
+			"verificationTime": 125,
+			"size": 3519,
+			"tokens": 1504,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 402,
+			"timestamp": 6743,
+			"verificationTime": 125,
+			"size": 3515,
+			"tokens": 1503,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 410,
+			"timestamp": 7031,
+			"verificationTime": 145,
+			"size": 3511,
+			"tokens": 1502,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 420,
+			"timestamp": 7429,
+			"verificationTime": 123,
+			"size": 3507,
+			"tokens": 1501,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 424,
+			"timestamp": 7602,
+			"verificationTime": 128,
+			"size": 3503,
+			"tokens": 1500,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 425,
+			"timestamp": 7726,
+			"verificationTime": 123,
+			"size": 3499,
+			"tokens": 1499,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 427,
+			"timestamp": 7758,
+			"timeInTestFunction": 7440
+		},
+		{
+			"checks": 827,
+			"timestamp": 14112,
+			"timeInTestFunction": 13521
+		}
+	],
+	"totalTime": 14114,
+	"wallTime": 14244,
+	"timeInTestFunction": 13521,
+	"numberOfChecks": 827
+}

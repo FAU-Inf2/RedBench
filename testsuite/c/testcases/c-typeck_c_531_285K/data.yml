@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -Iruntime -O0'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 940451748467
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C2'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in c_common_type, at c-typeck.c:531'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

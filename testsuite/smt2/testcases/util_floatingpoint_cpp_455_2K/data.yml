@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.8'
+  options: '--incremental --fp-exp --lang smt2'
+generator:
+  name: 'starsmith'
+  version: '67fe7a8'
+  seed: 419008852652
+  options: 'smt_fp'
+bug:
+  id: 'C90'
+  compile:
+    exitcode:
+    output: '/src/util/floatingpoint.cpp:455'
+    wrong_output: False

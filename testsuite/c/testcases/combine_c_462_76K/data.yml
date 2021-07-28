@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -Os'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 609422
+  options:
+bug:
+  id: 'C8'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in do_SUBST, at combine.c:462'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

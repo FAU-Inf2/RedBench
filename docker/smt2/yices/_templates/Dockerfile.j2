@@ -1,0 +1,52 @@
+{% from '../../_templates/Dockerfiles/apt.j2' import apt %}
+
+{% set v = variables[env("CONTEXT")] %}
+
+
+FROM {{ v.from }}
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+ENV CC="/usr/bin/gcc"
+
+# oracle
+
+{% call apt() %}z3{% endcall %}
+
+
+# prerequisites
+
+{% include '../../_templates/Dockerfiles/gmp.j2' %}
+
+
+# get release
+
+ARG release
+ARG giturl="https://github.com/SRI-CSL/yices2.git"
+
+RUN git clone \
+  --branch "${release}" \
+  --depth 1 \
+  "${giturl}" "${release}"
+
+
+# build process
+
+ENV LD_LIBRARY_PATH=/home/user/install/lib/
+
+RUN cd "${release}" && autoconf
+RUN cd "${release}" && ./configure \
+  --disable-shared \
+  --enable-static \
+  --prefix=$(realpath ../install) \
+  --with-static-gmp=$(realpath ../install/lib/libgmp.a) \
+  --with-static-gmp-include-dir=$(realpath ../install/include)
+RUN cd "${release}" && make             MODE=devel
+RUN cd "${release}" && make dist        MODE=devel
+RUN cd "${release}" && make install     MODE=devel
+
+RUN rm -rf ${release}
+
+
+# finish
+
+WORKDIR /data

@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'yices'
+  version: '2.2.0'
+  options: '--incremental'
+generator:
+  name: 'starsmith'
+  version: '67fe7a8'
+  seed: 510554333429
+  options: 'smt'
+bug:
+  id: 'C92'
+  compile:
+    exitcode: 139
+    output:
+    wrong_output: False

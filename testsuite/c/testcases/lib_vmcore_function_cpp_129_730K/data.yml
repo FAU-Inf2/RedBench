@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.1'
+  options: '--std=c99 -w -O0'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 21326
+  options:
+bug:
+  id: 'C71'
+  compile:
+    exitcode:
+    output: '/lib/VMCore/Function.cpp:129:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

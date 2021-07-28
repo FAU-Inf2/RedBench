@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.8'
+  options: '--incremental --lang smt2'
+generator:
+  name: 'starsmith'
+  version: '67fe7a8'
+  seed: '011142167739'
+  options: 'smt_fp'
+bug:
+  id: 'C87'
+  compile:
+    exitcode:
+    output: 'significand bit vector in fp is an invalid size'
+    wrong_output: False

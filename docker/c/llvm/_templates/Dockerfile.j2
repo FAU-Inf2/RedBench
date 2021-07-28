@@ -1,0 +1,130 @@
+{% from '../../_templates/Dockerfiles/apt.j2' import apt %}
+
+{% set v = variables[env("CONTEXT")] %}
+
+
+{% include '../../_templates/Dockerfiles/csmith.j2' %}
+
+# -----
+
+FROM {{ v.from }} as {{ name }}-builder
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+ENV CC="/usr/bin/gcc"
+ENV CFLAGS="-static"
+
+# prerequisites
+
+{% include '../../_templates/Dockerfiles/gmp.j2' %}
+
+{% include '../../_templates/Dockerfiles/mpfr.j2' %}
+
+
+# llvm
+
+ARG llvm_version
+
+## get release
+
+ARG release
+ARG release_file="${release}.tar.gz"
+ARG release_url="https://releases.llvm.org/${llvm_version}/${release_file}"
+ARG md5sum_backend
+
+RUN wget --progress=dot:giga "${release_url}" -O "${release_file}"
+RUN actual_md5sum="$(md5sum "${release_file}" | cut -d' ' -f1)" && \
+  if [ "$actual_md5sum" != "${md5sum_backend}" ] ; then \
+    echo "[!] wrong MD5 sum (expected '${md5sum_backend}', but was '$actual_md5sum')" ; \
+    exit 1 ; \
+  fi
+
+RUN tar xvf "${release_file}"
+
+## patches
+
+COPY "patches/${release}.patch" "${release}"
+RUN cd "${release}" && patch -Np1 -i "${release}.patch"
+
+## build backend
+
+ENV CC="clang"
+ENV CXX="clang++"
+ENV LIBRARY_PATH=/home/user/install/lib/
+ENV LD_LIBRARY_PATH=/home/user/install/lib/
+
+RUN mkdir llvm-build && cd llvm-build && "../${release}/configure" \
+  --disable-docs \
+  --disable-doxygen \
+  --disable-jit \
+  --enable-assertions \
+  --enable-checking \
+  --enable-targets=x86 \
+  --enable-static \
+  --prefix=$(realpath ../install) \
+  --with-gmp=$(realpath ../install) \
+  --with-mpfr=$(realpath ../install)
+RUN cd llvm-build && make CXXFLAGS="-std=c++11 -Wno-c++11-narrowing -static"
+RUN cd llvm-build && make install
+
+
+# frontend
+
+## get release
+
+ARG frontend
+ARG frontend_file="${frontend}.tar.gz"
+ARG frontend_url="https://releases.llvm.org/${llvm_version}/${frontend_file}"
+ARG md5sum_frontend
+
+RUN wget --progress=dot:giga "${frontend_url}" -O "${frontend_file}"
+RUN actual_md5sum="$(md5sum "${frontend_file}" | cut -d' ' -f1)" && \
+  if [ "$actual_md5sum" != "${md5sum_frontend}" ] ; then \
+    echo "[!] wrong MD5 sum (expected '${md5sum_frontend}', but was '$actual_md5sum')" ; \
+    exit 1 ; \
+  fi
+RUN tar xvf "${frontend_file}"
+
+## patches
+
+COPY "patches/${frontend}.patch" "${frontend}"
+RUN cd "${frontend}" && patch -Np1 -i "${frontend}.patch"
+
+## build frontend
+
+ENV CFLAGS=""
+ENV CXX="clang++ -std=c++11"
+
+RUN mkdir frontend-build && cd frontend-build && "../${frontend}/configure" \
+  --disable-multilib \
+  --disable-shared \
+  --enable-assertions \
+  --enable-languages=c \
+  --enable-llvm=$(realpath ../llvm-build) \
+  --prefix=$(realpath ../install) \
+  --program-prefix=llvm- \
+  --with-gmp=$(realpath ../install) \
+  --with-mpfr=$(realpath ../install)
+RUN cd frontend-build && make
+RUN cd frontend-build && make install
+
+
+# -----
+
+FROM {{ v.run_from }}
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+# frama-c
+
+{% call apt() %}frama-c-base{% endcall %}
+
+# csmith runtime
+
+COPY --from=csmith-builder /data/csmith/runtime /data/runtime
+
+# {{ name }}
+
+COPY --from={{ name }}-builder /home/user/install /home/user/install
+
+# finish
+
+WORKDIR /data

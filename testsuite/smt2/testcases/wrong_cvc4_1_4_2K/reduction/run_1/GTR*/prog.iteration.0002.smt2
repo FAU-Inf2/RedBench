@@ -1,0 +1,18 @@
+(set-logic QF_UFBV)
+(declare-fun iu2 (Bool (_ BitVec 1)) Bool)
+(declare-fun oC87 () (_ BitVec 3))
+(declare-fun u12_bq6 () Bool)
+(assert (iu2 u12_bq6 #b1)
+)
+(assert
+  (=> (bvult oC87 oC87) (let ((nG_ u12_bq6)) nG_))
+)
+(declare-fun nY5y () Bool)
+(declare-fun b7eFUF () (_ BitVec 1))
+(assert
+  (iu2 (iu2 false ((_ extract 24 24) #b111100001101011011010011111001)) b7eFUF)
+)
+(assert (not (iu2 u12_bq6 b7eFUF))
+)
+(check-sat)
+(check-sat)

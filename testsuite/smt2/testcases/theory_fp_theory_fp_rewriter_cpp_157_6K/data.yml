@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: 1.7
+  options: '--incremental --fp-exp --lang smt2'
+generator:
+  name: 'starsmith'
+  version: '67fe7a8'
+  seed: 107711290037
+  options: 'smt_fp'
+bug:
+  id: 'C84'
+  compile:
+    exitcode:
+    output: '/src/theory/fp/theory_fp_rewriter.cpp:157'
+    wrong_output: False

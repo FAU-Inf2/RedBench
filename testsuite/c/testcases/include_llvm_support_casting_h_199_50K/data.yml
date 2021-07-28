@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '1.9'
+  options: '--std=c99 -w -Iruntime -O2'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: '007188648890'
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C44'
+  compile:
+    exitcode:
+    output: '/include/llvm/Support/Casting.h:199:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

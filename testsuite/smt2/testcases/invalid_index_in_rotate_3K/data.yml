@@ -1,0 +1,18 @@
+---
+language: 'smt2'
+compiler:
+  name: 'yices'
+  version: '2.6.0'
+  options: '--incremental'
+generator:
+  name: 'fuzzsmt'
+  version: 0.31
+  seed: 115677584535
+  options: 'QF_UFBV'
+  source: 'https://github.com/msoos/fuzzsmt'
+bug:
+  id: 'C94'
+  compile:
+    exitcode:
+    output: 'rotate_right: invalid index in rotate'
+    wrong_output: False

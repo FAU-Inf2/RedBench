@@ -1,0 +1,227 @@
+{
+	"timestamp": "2021-04-15T00:24:13.804447Z",
+	"reducer": "HDD",
+	"configuration": {
+		"in": "/data/prog.c",
+		"outDir": "/output_tmpfs/HDD*",
+		"grammar": "/reducer/grammars/c.txt",
+		"reduce": "HDD*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 317209,
+			"tokens": 156787,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 2,
+			"timestamp": 303,
+			"verificationTime": 121,
+			"size": 114406,
+			"tokens": 57036,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 3,
+			"timestamp": 416,
+			"verificationTime": 105,
+			"size": 60330,
+			"tokens": 30046,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 13,
+			"timestamp": 1046,
+			"verificationTime": 108,
+			"size": 59682,
+			"tokens": 29732,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 24,
+			"timestamp": 1462,
+			"verificationTime": 42,
+			"size": 21854,
+			"tokens": 10868,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 58,
+			"timestamp": 2708,
+			"verificationTime": 45,
+			"size": 21849,
+			"tokens": 10868,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 61,
+			"timestamp": 2842,
+			"verificationTime": 42,
+			"size": 21843,
+			"tokens": 10867,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 77,
+			"timestamp": 3406,
+			"verificationTime": 25,
+			"size": 1416,
+			"tokens": 611,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 89,
+			"timestamp": 3711,
+			"verificationTime": 24,
+			"size": 1410,
+			"tokens": 611,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 101,
+			"timestamp": 4056,
+			"verificationTime": 28,
+			"size": 775,
+			"tokens": 276,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 121,
+			"timestamp": 4661,
+			"verificationTime": 26,
+			"size": 347,
+			"tokens": 81,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 130,
+			"timestamp": 4896,
+			"verificationTime": 26,
+			"size": 305,
+			"tokens": 81,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 133,
+			"timestamp": 4970,
+			"verificationTime": 22,
+			"size": 270,
+			"tokens": 72,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 146,
+			"timestamp": 5333,
+			"verificationTime": 26,
+			"size": 250,
+			"tokens": 69,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 150,
+			"timestamp": 5467,
+			"verificationTime": 26,
+			"size": 225,
+			"tokens": 65,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 155,
+			"timestamp": 5632,
+			"verificationTime": 29,
+			"size": 201,
+			"tokens": 61,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 168,
+			"timestamp": 6097,
+			"verificationTime": 26,
+			"size": 186,
+			"tokens": 58,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 174,
+			"timestamp": 6317,
+			"verificationTime": 27,
+			"size": 169,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 181,
+			"timestamp": 6676,
+			"verificationTime": 27,
+			"size": 165,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 183,
+			"timestamp": 6757,
+			"verificationTime": 28,
+			"size": 160,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 193,
+			"timestamp": 7152,
+			"verificationTime": 27,
+			"size": 152,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 210,
+			"timestamp": 7760,
+			"verificationTime": 26,
+			"size": 150,
+			"tokens": 55,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 212,
+			"timestamp": 7844,
+			"verificationTime": 27,
+			"size": 147,
+			"tokens": 52,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 281,
+			"timestamp": 9992,
+			"verificationTime": 24,
+			"size": 98,
+			"tokens": 40,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 279,
+			"timestamp": 9913,
+			"timeInTestFunction": 9375
+		},
+		{
+			"checks": 405,
+			"timestamp": 13722,
+			"timeInTestFunction": 13139
+		},
+		{
+			"checks": 405,
+			"timestamp": 13742,
+			"timeInTestFunction": 13139
+		}
+	],
+	"totalTime": 13742,
+	"wallTime": 14763,
+	"timeInTestFunction": 13139,
+	"numberOfChecks": 405
+}

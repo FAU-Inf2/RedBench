@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.1'
+  options: '--std=c99 -w -Iruntime -O3'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 876969398584
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C67'
+  compile:
+    exitcode:
+    output: '/lib/Transforms/Scalar/InstructionCombining.cpp:3129:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

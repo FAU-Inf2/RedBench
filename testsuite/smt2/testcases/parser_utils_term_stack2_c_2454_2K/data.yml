@@ -1,0 +1,17 @@
+---
+language: 'smt2'
+compiler:
+  name: 'yices'
+  version: '2.3.0'
+  options: '--incremental'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 1840
+  options: 'smt'
+bug:
+  id: 'C93'
+  compile:
+    exitcode: 21
+    output: 'parser_utils/term_stack2.c:2454:'
+    wrong_output: False

@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.4.0'
+  options: '--std=c99 -w -Iruntime -O3'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: '756037199928'
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C39'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in int_mode_for_mode, at stor-layout.c:258'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

@@ -1,0 +1,110 @@
+{
+	"timestamp": "2021-04-12T23:38:28.704192Z",
+	"reducer": "Pardis",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/PardisHybrid*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "PardisHybrid*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 3592,
+			"tokens": 1517,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 123,
+			"timestamp": 1984,
+			"verificationTime": 145,
+			"size": 3531,
+			"tokens": 1507,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 361,
+			"timestamp": 5778,
+			"verificationTime": 146,
+			"size": 3527,
+			"tokens": 1506,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 375,
+			"timestamp": 6115,
+			"verificationTime": 144,
+			"size": 3523,
+			"tokens": 1505,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 381,
+			"timestamp": 6374,
+			"verificationTime": 140,
+			"size": 3519,
+			"tokens": 1504,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 396,
+			"timestamp": 6722,
+			"verificationTime": 144,
+			"size": 3515,
+			"tokens": 1503,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 405,
+			"timestamp": 7027,
+			"verificationTime": 146,
+			"size": 3511,
+			"tokens": 1502,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 416,
+			"timestamp": 7453,
+			"verificationTime": 144,
+			"size": 3507,
+			"tokens": 1501,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 420,
+			"timestamp": 7657,
+			"verificationTime": 140,
+			"size": 3503,
+			"tokens": 1500,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 421,
+			"timestamp": 7806,
+			"verificationTime": 148,
+			"size": 3499,
+			"tokens": 1499,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 423,
+			"timestamp": 7839,
+			"timeInTestFunction": 7547
+		},
+		{
+			"checks": 827,
+			"timestamp": 14245,
+			"timeInTestFunction": 13700
+		}
+	],
+	"totalTime": 14247,
+	"wallTime": 14349,
+	"timeInTestFunction": 13700,
+	"numberOfChecks": 827
+}

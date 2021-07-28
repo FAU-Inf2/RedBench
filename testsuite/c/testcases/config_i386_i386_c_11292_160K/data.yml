@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.3.0'
+  options: '--std=c99 -w -Os'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 238054373264
+  options:
+bug:
+  id: 'C31'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in ix86_match_ccmode, at config/i386/i386.c:11292'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

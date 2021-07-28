@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.2.0'
+  options: '--std=c99 -w -Os'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 718812
+  options:
+bug:
+  id: 'C24'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in build_polynomial_chrec, at tree-chrec.h:108'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

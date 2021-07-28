@@ -1,0 +1,90 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+set -u
+
+usage() {
+  >&2 echo "[!] USAGE: $0 <release> ( <testcase dir> ) | ( <test script> <program> )"
+}
+
+if [ $# -lt 2 ] || [ $# -gt 3 ] ; then
+  usage
+  exit 1
+fi
+
+# handle command line arguments
+readonly RELEASE="$1"
+shift
+
+if [ $# -eq 1 ] ; then
+  readonly testcase_dir="$1"
+  shift
+
+  readonly TEST_SCRIPT="$testcase_dir/test.sh"
+  readonly PROGRAM="$testcase_dir/prog.{{ language }}"
+else
+  readonly TEST_SCRIPT="$1"
+  shift
+
+  readonly PROGRAM="$1"
+  shift
+fi
+
+if [ ! -f "$TEST_SCRIPT" ] ; then
+  >&2 echo "[!] did not find test script '$TEST_SCRIPT'"
+  usage
+  exit 2
+fi
+
+if [ ! -f "$PROGRAM" ] ; then
+  >&2 echo "[!] did not find program '$PROGRAM'"
+  usage
+  exit 2
+fi
+
+# check if the executing user is in the "docker" group
+if groups | grep -qE "\bdocker\b" ; then
+  readonly RUNCMD=
+else
+  readonly RUNCMD="sudo"
+fi
+
+if ! which 'docker' >/dev/null 2>&1 ; then
+  echo "[!] did not find a docker installation, unable to run container"
+  exit 2
+fi
+
+readonly DOCKERTAG="{{ name }}-${RELEASE}"
+readonly IMAGE_NAME="fau-i2-act/${DOCKERTAG}"
+
+test_script_in_container="/data/test.sh"
+program_in_container="/data/prog.{{ language }}"
+
+$RUNCMD docker image inspect "$IMAGE_NAME" >/dev/null 2>&1 || {
+  >&2 echo "[!] did not find docker image '$IMAGE_NAME'"
+  exit 2
+}
+
+# create container (but do not run it yet, since we have to copy the test script and the program to
+# the container first)
+container_id=$(
+  $RUNCMD docker create \
+    --tty \
+    --rm --network=none \
+    --cap-drop=ALL \
+    --workdir="/data" \
+    --user="$(id -u):$(id -g)" \
+    "$IMAGE_NAME" \
+    "$test_script_in_container" "$program_in_container"
+)
+
+# copy test script and program to container
+$RUNCMD docker cp "$TEST_SCRIPT" "$container_id":"$test_script_in_container"
+$RUNCMD docker cp "$PROGRAM" "$container_id":"$program_in_container"
+
+# run container
+$RUNCMD docker start -a "$container_id"
+exitcode=$?
+
+exit $exitcode

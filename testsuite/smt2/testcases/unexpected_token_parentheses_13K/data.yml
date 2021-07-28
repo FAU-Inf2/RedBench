@@ -1,0 +1,18 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.4'
+  options: '--incremental --lang smt2'
+generator:
+  name: 'fuzzsmt'
+  version: 0.31
+  seed: '057208176348'
+  options: 'QF_UFBV'
+  source: 'https://github.com/msoos/fuzzsmt'
+bug:
+  id: 'C83'
+  compile:
+    exitcode:
+    output: "Unexpected token: ')'"
+    wrong_output: False

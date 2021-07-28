@@ -1,0 +1,94 @@
+{
+	"timestamp": "2021-04-10T19:49:24.660132Z",
+	"reducer": "Pardis",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/Pardis*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "Pardis*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 2626,
+			"tokens": 1103,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 71,
+			"timestamp": 1140,
+			"verificationTime": 131,
+			"size": 2599,
+			"tokens": 1098,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 72,
+			"timestamp": 1259,
+			"verificationTime": 118,
+			"size": 2565,
+			"tokens": 1093,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 237,
+			"timestamp": 3749,
+			"verificationTime": 134,
+			"size": 2561,
+			"tokens": 1092,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 248,
+			"timestamp": 4067,
+			"verificationTime": 132,
+			"size": 2557,
+			"tokens": 1091,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 251,
+			"timestamp": 4270,
+			"verificationTime": 136,
+			"size": 2553,
+			"tokens": 1090,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 254,
+			"timestamp": 4433,
+			"verificationTime": 133,
+			"size": 2549,
+			"tokens": 1089,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 255,
+			"timestamp": 4567,
+			"verificationTime": 132,
+			"size": 2545,
+			"tokens": 1088,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 258,
+			"timestamp": 4609,
+			"timeInTestFunction": 4436
+		},
+		{
+			"checks": 505,
+			"timestamp": 8287,
+			"timeInTestFunction": 7987
+		}
+	],
+	"totalTime": 8288,
+	"wallTime": 8371,
+	"timeInTestFunction": 7987,
+	"numberOfChecks": 505
+}

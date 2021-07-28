@@ -1,0 +1,139 @@
+{
+	"timestamp": "2021-04-16T02:11:13.328294Z",
+	"reducer": "HDD",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/HDD*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "HDD*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 6399,
+			"tokens": 1437,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 2,
+			"timestamp": 52,
+			"verificationTime": 20,
+			"size": 2012,
+			"tokens": 547,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 3,
+			"timestamp": 72,
+			"verificationTime": 19,
+			"size": 1000,
+			"tokens": 259,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 4,
+			"timestamp": 94,
+			"verificationTime": 20,
+			"size": 537,
+			"tokens": 139,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 12,
+			"timestamp": 179,
+			"verificationTime": 21,
+			"size": 350,
+			"tokens": 91,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 23,
+			"timestamp": 303,
+			"verificationTime": 19,
+			"size": 332,
+			"tokens": 87,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 27,
+			"timestamp": 366,
+			"verificationTime": 20,
+			"size": 283,
+			"tokens": 74,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 77,
+			"timestamp": 1154,
+			"verificationTime": 20,
+			"size": 267,
+			"tokens": 73,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 103,
+			"timestamp": 1628,
+			"verificationTime": 18,
+			"size": 235,
+			"tokens": 68,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 125,
+			"timestamp": 2035,
+			"verificationTime": 21,
+			"size": 182,
+			"tokens": 54,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 143,
+			"timestamp": 2389,
+			"verificationTime": 20,
+			"size": 175,
+			"tokens": 53,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 156,
+			"timestamp": 2640,
+			"verificationTime": 21,
+			"size": 172,
+			"tokens": 53,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 167,
+			"timestamp": 2800,
+			"verificationTime": 21,
+			"size": 120,
+			"tokens": 37,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 161,
+			"timestamp": 2737,
+			"timeInTestFunction": 2658
+		},
+		{
+			"checks": 233,
+			"timestamp": 3988,
+			"timeInTestFunction": 3890
+		},
+		{
+			"checks": 233,
+			"timestamp": 4000,
+			"timeInTestFunction": 3890
+		}
+	],
+	"totalTime": 4001,
+	"wallTime": 4051,
+	"timeInTestFunction": 3890,
+	"numberOfChecks": 233
+}

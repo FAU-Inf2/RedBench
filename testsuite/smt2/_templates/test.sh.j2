@@ -1,0 +1,67 @@
+#!/bin/bash
+
+{% set compiler_name = compiler.name %}
+{% if compiler_name == "yices" %}
+    {% set compiler_name = "yices-smt2" %}
+{% endif %}
+
+
+set -u
+
+
+{% if bug.compile.oracle is defined and bug.compile.oracle %}
+    readonly GOOD="{{ bug.compile.oracle.binary }}"
+    readonly GOOD_OPT="{{ bug.compile.oracle.options }}"
+{% endif %}
+
+# {{ compiler.name }} -- {{ compiler.version }}
+readonly BAD="/home/user/install/bin/{{ compiler_name }}"
+readonly BAD_OPT="{{ compiler.options|default('', true) }}"
+readonly PROGRAM="${1-"prog.{{ language }}"}"
+readonly TIMEOUT=5
+
+
+{# NO BUG if set-logic is missing. #}
+grep -Fq 'set-logic' "$PROGRAM" || exit 0
+
+
+{% if bug.compile.oracle is defined and bug.compile.oracle %}
+    good_output=$(timeout -s 9 $TIMEOUT "$GOOD" $GOOD_OPT "$PROGRAM" 2>&1)
+    good_exitcode=$?
+
+    {# NO BUG if the good one fails. #}
+    [ $good_exitcode -eq 0 ] || exit 0
+
+    {# NO BUG if the good one prints a warning or an error (some solvers do not terminate appropriately... #}
+    echo "$good_output" | grep -qi "warning\|error" && exit 0
+{% endif %}
+
+
+bad_output=$(timeout -s 9 $TIMEOUT "$BAD" $BAD_OPT "$PROGRAM" 2>&1)
+bad_exitcode=$?
+
+
+{% if bug.compile.exitcode is defined and bug.compile.exitcode %}
+    {# NO BUG if the exitcode is not the same as the bug one. #}
+    [ $bad_exitcode -eq {{ bug.compile.exitcode }} ] || exit 0
+{% endif %}
+
+{% if bug.compile.output is defined and bug.compile.output %}
+    {# NO BUG if the output does not contain the bug. #}
+    echo "$bad_output" | grep -Fq "{{ bug.compile.output | replace('"', '\\"') }}" || exit 0
+{% endif %}
+
+{% if bug.compile.wrong_output is defined and bug.compile.wrong_output %}
+    {# NO BUG if the bad one prints a an error (some solvers do not terminate appropriately... #}
+    echo "$bad_output" | grep -qi "error" && exit 0
+
+    {# filter warning messages #}
+    bad_output=$(echo "$bad_output" | grep -vi "warning")
+
+    {# NO BUG if the output is the same. #}
+    diff -q <(echo "$bad_output") <(echo "$good_output") >/dev/null && exit 0
+{% endif %}
+
+
+{# BUG if not exited before. #}
+exit 1

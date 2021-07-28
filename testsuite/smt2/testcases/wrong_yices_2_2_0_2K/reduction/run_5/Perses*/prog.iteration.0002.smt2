@@ -1,0 +1,16 @@
+
+(set-logic  QF_UFBV)
+(declare-fun f1 () (_ BitVec 13))
+(declare-fun v0 () (_ BitVec 7))
+(declare-fun v1 () (_ BitVec 7))
+(declare-fun v2 () (_ BitVec 8))
+(assert
+(let ((e3 16))
+(let ((e4 (_ bv16719 15)))
+(let ((e5(_ bv1 1)))
+(let ((e6 v1))
+(let ((e8 e5))
+(let ((e10 1))
+(let ((e13 e8))
+(let ((e16 ((_ rotate_right 9) e4))) (bvsle e16 ((_ zero_extend 14) e5)))))))))))
+(check-sat)

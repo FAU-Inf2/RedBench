@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -O0'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 363293
+  options:
+bug:
+  id: 'C13'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in tree_low_cst, at tree.c:3843'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

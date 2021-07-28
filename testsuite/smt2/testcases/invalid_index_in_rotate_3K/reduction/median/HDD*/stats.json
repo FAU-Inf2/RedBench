@@ -1,0 +1,200 @@
+{
+  "timestamp": "2021-03-10T12:42:09.450Z",
+  "reducer": "HDD",
+  "configuration": {
+    "in": "/data/prog.smt2",
+    "outDir": "/output_tmpfs/HDD*",
+    "grammar": "/reducer/grammars/smt2.txt",
+    "reduce": "HDD*",
+    "test": "/data/test.sh",
+    "cache": true
+  },
+  "steps": [
+    {
+      "index": 0,
+      "timestamp": 0,
+      "verificationTime": 0,
+      "size": 2783,
+      "tokens": 1179,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 20,
+      "timestamp": 152,
+      "verificationTime": 11,
+      "size": 2749,
+      "tokens": 1174,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 22,
+      "timestamp": 168,
+      "verificationTime": 11,
+      "size": 2722,
+      "tokens": 1169,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 35,
+      "timestamp": 278,
+      "verificationTime": 11,
+      "size": 2688,
+      "tokens": 1158,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 44,
+      "timestamp": 380,
+      "verificationTime": 11,
+      "size": 2676,
+      "tokens": 1155,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 364,
+      "timestamp": 4158,
+      "verificationTime": 12,
+      "size": 2627,
+      "tokens": 1134,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 372,
+      "timestamp": 4257,
+      "verificationTime": 12,
+      "size": 2600,
+      "tokens": 1124,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 401,
+      "timestamp": 4612,
+      "verificationTime": 11,
+      "size": 2580,
+      "tokens": 1116,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 464,
+      "timestamp": 5390,
+      "verificationTime": 12,
+      "size": 2545,
+      "tokens": 1105,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 503,
+      "timestamp": 5872,
+      "verificationTime": 12,
+      "size": 2526,
+      "tokens": 1098,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 511,
+      "timestamp": 5973,
+      "verificationTime": 12,
+      "size": 2524,
+      "tokens": 1098,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 519,
+      "timestamp": 6073,
+      "verificationTime": 11,
+      "size": 2503,
+      "tokens": 1091,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 537,
+      "timestamp": 6296,
+      "verificationTime": 11,
+      "size": 550,
+      "tokens": 230,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 554,
+      "timestamp": 6506,
+      "verificationTime": 12,
+      "size": 548,
+      "tokens": 230,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 581,
+      "timestamp": 6787,
+      "verificationTime": 11,
+      "size": 475,
+      "tokens": 204,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 586,
+      "timestamp": 6849,
+      "verificationTime": 12,
+      "size": 441,
+      "tokens": 193,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 679,
+      "timestamp": 7908,
+      "verificationTime": 11,
+      "size": 428,
+      "tokens": 189,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 732,
+      "timestamp": 8553,
+      "verificationTime": 12,
+      "size": 402,
+      "tokens": 178,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 844,
+      "timestamp": 9915,
+      "verificationTime": 11,
+      "size": 354,
+      "tokens": 162,
+      "result": "SUCCESSFUL"
+    },
+    {
+      "index": 852,
+      "timestamp": 9999,
+      "verificationTime": 12,
+      "size": 320,
+      "tokens": 151,
+      "result": "SUCCESSFUL"
+    }
+  ],
+  "iterations": [
+    {
+      "checks": 568,
+      "timestamp": 6592,
+      "timeInTestFunction": 6255
+    },
+    {
+      "checks": 840,
+      "timestamp": 9740,
+      "timeInTestFunction": 9315
+    },
+    {
+      "checks": 1026,
+      "timestamp": 11891,
+      "timeInTestFunction": 11359
+    },
+    {
+      "checks": 1027,
+      "timestamp": 11931,
+      "timeInTestFunction": 11363
+    }
+  ],
+  "totalTime": 12114,
+  "wallTime": 12038,
+  "timeInTestFunction": 11567,
+  "numberOfChecks": 1027
+}

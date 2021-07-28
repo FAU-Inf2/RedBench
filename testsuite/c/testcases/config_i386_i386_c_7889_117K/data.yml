@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.4.0'
+  options: '--std=c99 -w -O2'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 432054590758
+  options:
+bug:
+  id: 'C40'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in pro_epilogue_adjust_stack, at config/i386/i386.c:7889'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

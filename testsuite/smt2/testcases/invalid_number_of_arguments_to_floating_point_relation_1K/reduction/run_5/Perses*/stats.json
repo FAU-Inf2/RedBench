@@ -1,0 +1,102 @@
+{
+	"timestamp": "2021-04-16T01:37:02.123Z",
+	"reducer": "Perses",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/Perses*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "Perses*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 0,
+			"verificationTime": 0,
+			"size": 1182,
+			"tokens": 339,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 9,
+			"timestamp": 83,
+			"verificationTime": 14,
+			"size": 918,
+			"tokens": 259,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 12,
+			"timestamp": 117,
+			"verificationTime": 14,
+			"size": 802,
+			"tokens": 225,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 18,
+			"timestamp": 163,
+			"verificationTime": 13,
+			"size": 732,
+			"tokens": 207,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 20,
+			"timestamp": 180,
+			"verificationTime": 11,
+			"size": 435,
+			"tokens": 128,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 27,
+			"timestamp": 237,
+			"verificationTime": 14,
+			"size": 401,
+			"tokens": 121,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 28,
+			"timestamp": 253,
+			"verificationTime": 15,
+			"size": 369,
+			"tokens": 114,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 29,
+			"timestamp": 270,
+			"verificationTime": 13,
+			"size": 68,
+			"tokens": 16,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 30,
+			"timestamp": 283,
+			"verificationTime": 13,
+			"size": 54,
+			"tokens": 12,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 30,
+			"timestamp": 284,
+			"timeInTestFunction": 252
+		},
+		{
+			"checks": 31,
+			"timestamp": 289,
+			"timeInTestFunction": 255
+		}
+	],
+	"totalTime": 290,
+	"wallTime": 310,
+	"timeInTestFunction": 255,
+	"numberOfChecks": 31
+}

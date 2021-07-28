@@ -1,0 +1,21 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.5'
+  options: '--incremental --lang smt2'
+generator:
+  name: 'fuzzsmt'
+  version: 0.31
+  seed: 546469577773
+  options: 'QF_UFBV'
+  source: 'https://github.com/msoos/fuzzsmt'
+bug:
+  id: 'W11'
+  compile:
+    exitcode: '0'
+    output:
+    wrong_output: True
+    oracle:
+      binary: '/usr/bin/z3'
+      options: '-smt2'

@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.0'
+  options: '--std=c99 -w -O3'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 228
+  options:
+bug:
+  id: 'C55'
+  compile:
+    exitcode:
+    output: '/include/llvm/Analysis/Dominators.h:185:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

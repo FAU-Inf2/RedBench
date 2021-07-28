@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '1.9'
+  options: '--std=c99 -w -Iruntime -O2'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 503947954437
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C48'
+  compile:
+    exitcode:
+    output: '/lib/Transforms/IPO/GlobalOpt.cpp:438:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

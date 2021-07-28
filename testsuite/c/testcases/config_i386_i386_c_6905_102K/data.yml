@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.1.0'
+  options: '--std=c99 -w -Iruntime -Os'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 541801097199
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C14'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in print_reg, at config/i386/i386.c:6905'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

@@ -1,0 +1,165 @@
+#!/bin/bash
+
+{% set compiler_name = compiler.name %}
+{% if compiler_name == "llvm" %}
+    {% set compiler_name = "llvm-gcc" %}
+{% endif %}
+
+
+{% if ( (bug.execute.exitcode is defined and bug.execute.exitcode) or
+        (bug.execute.output is defined and bug.execute.output) or
+        (bug.execute.wrong_output is defined and bug.execute.wrong_output) ) %}
+    {% set use_execute = true %}
+{% else %}
+    {% set use_execute = false %}
+{% endif %}
+
+
+set -u
+
+
+readonly PROGRAM="${1-"prog.{{ language }}"}"
+
+
+{% if use_execute %}
+    readonly GOOD="{{ bug.execute.oracle.binary }}"
+    readonly GOOD_EXE="${PROGRAM}.good.exe"
+    readonly GOOD_OPT="{{ bug.execute.oracle.options }}"
+    readonly GOOD_OUT="${PROGRAM}.good.out"
+    readonly CLANG_OUT="${PROGRAM}.clang.out"
+{% endif %}
+
+# {{ compiler.name }} -- {{ compiler.version }}
+readonly BAD="/home/user/install/bin/{{ compiler_name }}"
+readonly BAD_OPT="{{ compiler.options|default('', true) }}"
+readonly BAD_EXE="${PROGRAM}.bad.exe"
+readonly TIMEOUT_compile=10
+readonly TIMEOUT_execute=2
+
+
+{% if use_execute %}
+    {# NO BUG if undefined or unspecified behavior (clang, like at c-reduce) #}
+    timeout -s 9 $TIMEOUT_compile /usr/bin/clang -pedantic -Wall -O0 \
+        -fsanitize=undefined -fno-sanitize-recover \
+        -o /dev/null $GOOD_OPT "$PROGRAM" &>"$CLANG_OUT" &&\
+    ! grep -q 'conversions than data arguments' "$CLANG_OUT" &&\
+    ! grep -q 'incompatible redeclaration' "$CLANG_OUT" &&\
+    ! grep -q 'ordered comparison between pointer' "$CLANG_OUT" &&\
+    ! grep -q 'eliding middle term' "$CLANG_OUT" &&\
+    ! grep -q 'end of non-void function' "$CLANG_OUT" &&\{# perses deact #}
+    ! grep -q 'invalid in C99' "$CLANG_OUT" &&\
+    ! grep -q 'specifies type' "$CLANG_OUT" &&\
+    ! grep -q 'should return a value' "$CLANG_OUT" &&\
+    ! grep -q 'uninitialized' "$CLANG_OUT" &&\{# perses deact #}
+    ! grep -q 'incompatible pointer to' "$CLANG_OUT" &&\
+    ! grep -q 'incompatible integer to' "$CLANG_OUT" &&\
+    ! grep -q 'type specifier missing' "$CLANG_OUT" &&\
+    true || exit 0
+
+
+    good_compile_output=$(timeout -s 9 $TIMEOUT_compile "$GOOD" -o "$GOOD_EXE" $GOOD_OPT "$PROGRAM" 2>&1)
+    good_compile_exitcode=$?
+
+    {# NO BUG if the good compiler fails. #}
+    [ $good_compile_exitcode -eq 0 ] || exit 0
+
+
+    {# NO BUG if undefined or unspecified behavior (good compiler, like at c-reduce) #}
+    timeout -s 9 $TIMEOUT_compile "$GOOD" -Wall -Wextra \
+        -o "$GOOD_EXE" $GOOD_OPT "$PROGRAM" &>"$GOOD_OUT" &&\
+    ! grep -q 'uninitialized' "$GOOD_OUT" &&\{# perses deact #}
+    ! grep -q 'without a cast' "$GOOD_OUT" &&\
+    ! grep -q 'control reaches end' "$GOOD_OUT" &&\{# perses deact #}
+    ! grep -q 'return type defaults' "$GOOD_OUT" &&\
+    ! grep -q 'cast from pointer to integer' "$GOOD_OUT" &&\
+    ! grep -q 'useless type name in empty declaration' "$GOOD_OUT" &&\
+    ! grep -q 'no semicolon at end' "$GOOD_OUT" &&\
+    ! grep -q 'type defaults to' "$GOOD_OUT" &&\
+    ! grep -q 'too few arguments for format' "$GOOD_OUT" &&\
+    ! grep -q 'in format' "$GOOD_OUT" &&\{# perses del #}
+    ! grep -q 'incompatible pointer' "$GOOD_OUT" &&\
+    ! grep -q 'ordered comparison of pointer with integer' "$GOOD_OUT" &&\
+    ! grep -q 'declaration does not declare anything' "$GOOD_OUT" &&\
+    ! grep -q 'expects type' "$GOOD_OUT" &&\
+    ! grep -q 'pointer from integer' "$GOOD_OUT" &&\
+    ! grep -q 'incompatible implicit' "$GOOD_OUT" &&\{# perses deact #}
+    ! grep -q 'excess elements in struct initializer' "$GOOD_OUT" &&\
+    ! grep -q 'comparison between pointer and integer' "$GOOD_OUT" &&\
+    #! grep -q 'division by zero' "$GOOD_OUT" &&\{# perses add #}
+    #! grep -q 'return type of \‘main\’ is not \‘int\’' "$GOOD_OUT" &&\{# perses add #}
+    true || exit 0
+
+
+    good_execute_output=$(timeout -s 9 $TIMEOUT_execute "$GOOD_EXE" 2>&1)
+    good_execute_exitcode=$?
+
+    {# NO BUG if the good execute fails. #}
+    [ $good_execute_exitcode -eq 0 ] || exit 0
+
+{% endif %}
+
+
+{# COMPILE #}
+
+bad_compile_output=$(timeout -s 9 $TIMEOUT_compile "$BAD" -o "$BAD_EXE" $BAD_OPT "$PROGRAM" 2>&1)
+bad_compile_exitcode=$?
+
+
+{% if bug.compile.exitcode is defined and bug.compile.exitcode %}
+    {# NO BUG if the exitcode is not the same as the bug one. #}
+    [ $bad_compile_exitcode -eq {{ bug.compile.exitcode }} ] || exit 0
+{% endif %}
+
+{% if bug.compile.output is defined and bug.compile.output %}
+    {# NO BUG if the output does not contain the bug. #}
+    echo "$bad_compile_output" | grep -Fq "{{ bug.compile.output | replace('"', '\\"') }}" || exit 0
+{% endif %}
+
+
+{# EXECUTE #}
+
+{% if use_execute %}
+    [ $bad_compile_exitcode -eq 0 ] || exit 0
+
+    bad_execute_output=$(timeout -s 9 $TIMEOUT_execute "$BAD_EXE" 2>&1)
+    bad_execute_exitcode=$?
+{% endif %}
+
+
+{% if bug.execute.exitcode is defined and bug.execute.exitcode %}
+    {# NO BUG if the exitcode is not the same as the bug one. #}
+    [ $bad_execute_exitcode -eq {{ bug.execute.exitcode }} ] || exit 0
+{% endif %}
+
+{% if bug.execute.output is defined and bug.execute.output %}
+    {# NO BUG if the output does not contain the bug. #}
+    echo "$bad_execute_output" | grep -Fq "{{ bug.execute.output | replace('"', '\\"') }}" || exit 0
+{% endif %}
+
+{% if bug.execute.wrong_output is defined and bug.execute.wrong_output %}
+    {# NO BUG if the output is the same. #}
+    diff -q <(echo "$bad_execute_output") <(echo "$good_execute_output") >/dev/null && exit 0
+{% endif %}
+
+
+{% if use_execute %}
+    {# NO BUG if undefined or unspecified behavior (frama-c, like at c-reduce) #}
+    readonly FRAMA_C_OUT="${PROGRAM}.frama_c.out"
+
+    perl -pi.bak -e 's/int main \(int argc, char\* argv\[\]\)/int argc; char **argv; int main (void)/' \
+        "$PROGRAM" || exit 0
+
+    frama-c -cpp-command "$GOOD -C -Dvolatile= -E $GOOD_OPT" \
+        -warn-signed-overflow -val-stop-at-nth-alarm 1 \
+        -val -no-val-show-progress -machdep x86_64 -obviously-terminates \
+        "$PROGRAM" 2>&1 > "$FRAMA_C_OUT"
+    frama_c_exitcode=$?
+
+    [ $frama_c_exitcode -eq 0 ] || exit 0
+
+    grep -Eiq '(user error|assert)' "$FRAMA_C_OUT" && exit 0
+{% endif %}
+
+
+{# BUG if not exited before. #}
+exit 1

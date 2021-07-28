@@ -1,0 +1,10 @@
+(set-logic QF_UFSLIA)
+(declare-fun i0_ () Int)
+(declare-fun d__R () Int)
+(define-fun b_rA2__ () Bool
+  (str.contains (str.replace (str.from_int (ite (str.contains "W" "") (str.len "}}QuH;_4_;7;;l68}8;}{69_;_}2P}0;}6A{5") (str.len (_ char #x5)))) (let ((ph__Qv (let ((k7a2_L9 false)) "")) (e_R (str.suffixof (_ char #xf2) "0}4;.z780:}{{_J}S8{,Y{Y_{;{f8}_1}V.h5iJb111q2;A9{{{I}_r};C;}}h;{{}7_;}B5_;7}")) (zw_n5 (_ char #xf1))) (ite (str.is_digit (ite e_R zw_n5 ph__Qv)) (ite (not e_R) ph__Qv "4;4V{_{4_}Fy;_-G__3chr{;vk9;") (let ((i2gXP_p zw_n5)) "6Y;;}_}5}8_99A"))) (str.at (str.replace_re_all (str.replace (_ char #xf7) "fbI}7}{_;_}_;;3T;j{m}8;k}F}K=ux{{};_Q_I__;1_;j1w,.q};=;5;t;5}4y_gG{_}H{9{t4{_V};;5-2};4+_3_" "n") ((_ re.loop 1 74) (re.range "O" (_ char #x75))) "Ll0;7:{};;_08}}14mO{n3}0_;;59{I{{_{b}0g{{8m;}o}7;{5{{;}{_{{6;}c{089CP") (str.to_int (str.replace (_ char #xed) "o_{E_25q_;9o{85;7L8}6{9tE{7;IFu}_;YX1;l_ldr_{b{;{_;}{;;N}}57;g6Q}{1_;;;{7_5_g}{{_;j}{8" ";{32Jbx}{qFG<")))) (ite (str.prefixof (str.++ (let ((i1_3P true)) "{5}{7;;{IG:/;;+;.;.;k9u;}0;1Q0;V;;b1__X{_;__.}3;A1_x9{_}2_}U0}5;{A") (str.replace "[" "\" "")) (ite (str.contains ";;;B:3eu1{h5{3BBv{R6;/;q;1}1+" "98w{Ar}cZ}_{{;}=r};_};_;E;{;6x};{1{}N;}{;{}{{n}2_;C") "8" "Z")) (str.++ (str.from_int (str.len (_ char #x2f))) (ite (ite true false false) "};}0;_tq0{04};{_}.{P_6;_k{5}_6;;9;}Q}{{UF{Se;Bd49{D;}0{_R./}}_4-s7;;rT_t7__{}7:;T59_}m}2_oc8E;;}v" "l")) (let ((f_E2 (xor (not false) (not false)))) (str.from_code (str.len "W")))))
+)
+(assert
+  (str.< (str.replace (str.replace (str.replace (str.from_code d__R) ";}hp;h{O+{g0r}_{e9_{}9{{;R94:;bf;{:5}ZS6<5m_V;+{};{f{;;{;G_8<X_DQ;r4Q{558/N" (str.replace (_ char #x1d) "7{J;eV{}2y___12{}_0m_3p{;}8a_lk<Pa_;}e;_o}{;_}_;}{u_62{K__A3;{_F}{;C{}13__}{{h}}/e;e" "")) (str.from_int (str.to_int ";33{;")) (str.replace_re (ite b_rA2__ "{{}_y9}3y_bg4;{8{__Y}G;}}{_0}_{_{Y;777_L{Z=x_<P{0;};{}3;Hi}-;__E_2mK_eu{<_U2}4;_m}+{_kS6" (_ char #xd)) (ite b_rA2__ (re.range "g" (_ char #xc2)) re.none) "4")) (str.from_code i0_) "5") (_ char #x5c))
+)
+(check-sat)

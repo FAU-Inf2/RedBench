@@ -1,0 +1,17 @@
+---
+language: smt2
+name: z3
+binary: z3
+default_options: -smt2
+
+versions:
+  - '4.3.2'
+  - '4.4.0'
+
+variables:
+  context_4.1_4.4:
+    from: 'fau-i2-act/debian-9'
+    cxxflags: '-std=gnu++98'
+  context_4.5_:
+    from: 'fau-i2-act/debian-10'
+    cxxflags: ''

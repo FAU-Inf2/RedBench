@@ -1,0 +1,18 @@
+---
+language: 'smt2'
+compiler:
+  name: 'z3'
+  version: '4.4.0'
+  options: '-smt2'
+generator:
+  name: 'fuzzsmt'
+  version: 0.31
+  seed: 293947116094
+  options: 'QF_UFBV'
+  source: 'https://github.com/msoos/fuzzsmt'
+bug:
+  id: 'C96'
+  compile:
+    exitcode: 139
+    output:
+    wrong_output: False

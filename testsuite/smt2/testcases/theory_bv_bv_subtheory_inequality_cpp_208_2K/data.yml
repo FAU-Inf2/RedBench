@@ -1,0 +1,21 @@
+---
+language: 'smt2'
+compiler:
+  name: 'cvc4'
+  version: '1.8'
+  options: '--incremental --lang smt2'
+generator:
+  name: 'fuzzsmt'
+  version: '0.31'
+  seed: '048828495742'
+  options: 'QF_AUFBV'
+  source: 'https://github.com/msoos/fuzzsmt'
+bug:
+  id: 'C85'
+  compile:
+    exitcode: '134'
+    output: '/src/theory/bv/bv_subtheory_inequality.cpp:208'
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/z3'
+      options: '-smt2'

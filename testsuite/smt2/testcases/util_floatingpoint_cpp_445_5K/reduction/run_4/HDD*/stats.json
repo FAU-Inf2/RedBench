@@ -1,0 +1,115 @@
+{
+	"timestamp": "2021-04-14T13:37:16.193860Z",
+	"reducer": "HDD",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/HDD*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "HDD*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 1,
+			"verificationTime": 0,
+			"size": 5552,
+			"tokens": 1415,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 2,
+			"timestamp": 150,
+			"verificationTime": 114,
+			"size": 2516,
+			"tokens": 669,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 3,
+			"timestamp": 250,
+			"verificationTime": 99,
+			"size": 1517,
+			"tokens": 416,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 4,
+			"timestamp": 348,
+			"verificationTime": 96,
+			"size": 744,
+			"tokens": 206,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 5,
+			"timestamp": 457,
+			"verificationTime": 107,
+			"size": 486,
+			"tokens": 140,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 6,
+			"timestamp": 555,
+			"verificationTime": 97,
+			"size": 182,
+			"tokens": 56,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 32,
+			"timestamp": 998,
+			"verificationTime": 98,
+			"size": 153,
+			"tokens": 46,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 34,
+			"timestamp": 1116,
+			"verificationTime": 98,
+			"size": 149,
+			"tokens": 46,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 41,
+			"timestamp": 1318,
+			"verificationTime": 91,
+			"size": 107,
+			"tokens": 41,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 56,
+			"timestamp": 1648,
+			"verificationTime": 96,
+			"size": 75,
+			"tokens": 34,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 53,
+			"timestamp": 1539,
+			"timeInTestFunction": 1483
+		},
+		{
+			"checks": 78,
+			"timestamp": 2023,
+			"timeInTestFunction": 1952
+		},
+		{
+			"checks": 78,
+			"timestamp": 2033,
+			"timeInTestFunction": 1952
+		}
+	],
+	"totalTime": 2035,
+	"wallTime": 2074,
+	"timeInTestFunction": 1952,
+	"numberOfChecks": 78
+}

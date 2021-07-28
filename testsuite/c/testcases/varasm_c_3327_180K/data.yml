@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.2.0'
+  options: '--std=c99 -w -Os'
+generator:
+  name: 'starsmith'
+  version: 'ICST20'
+  seed: 147123
+  options:
+bug:
+  id: 'C25'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in output_constant_pool_2, at varasm.c:3327'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -O0'

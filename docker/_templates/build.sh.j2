@@ -1,0 +1,71 @@
+#!/bin/bash
+
+{% set J2 = '../../../tools/j2.py' %}
+
+set -e
+set -o pipefail
+set -u
+
+
+if [ $# -ne 1 ] ; then
+    >&2 echo "[!] USAGE: $0 <{{ name }}-release>"
+    exit 2
+fi
+
+
+# dir of this script
+readonly scriptdir=$(dirname "$0")
+cd "$scriptdir"
+
+# arguments
+readonly ARG_RELEASE="$1"
+shift
+
+# docker tag
+readonly DOCKERTAG="{{ name }}-${ARG_RELEASE}"
+readonly image_name="fau-i2-act/${DOCKERTAG}"
+
+# release
+{%- block release %}
+RELEASE="{{ name }}-${ARG_RELEASE}"
+{% endblock %}
+
+# check if the executing user is in the "docker" group
+if groups | grep -qE "\bdocker\b" ; then
+    readonly RUNCMD=""
+else
+    readonly RUNCMD="sudo"
+fi
+
+# select docker context
+{%- block context %}
+CONTEXT="context"
+{% endblock %}
+
+# build Dockerfile from template
+if [ -f "_templates/Dockerfile.j2" ] ; then
+    mkdir -p "${CONTEXT}"
+    CONTEXT=$CONTEXT {{ J2 }} "_templates/Dockerfile.j2" "data.yml" | cat -s > "${CONTEXT}/Dockerfile"
+fi
+
+# additional build args
+{%- block build_args %}
+BUILD_ARGS=""
+{% endblock %}
+
+echo "[i] build image '$image_name'"
+
+if ! which 'docker' >/dev/null 2>&1 ; then
+  echo "[!] did not find a docker installation, unable to build image"
+  exit 0 # TODO fail?
+fi
+
+# build the image
+$RUNCMD docker build \
+    --build-arg release="$RELEASE" \
+    --build-arg uid=$(id -u) \
+    --build-arg gid=$(id -g) \
+    --build-arg group=$(id -g -n) \
+    $BUILD_ARGS \
+    -t "$image_name" \
+    "${CONTEXT}"

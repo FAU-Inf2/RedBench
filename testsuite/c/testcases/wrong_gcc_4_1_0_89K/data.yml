@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.1.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: '063861705997'
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'W2'
+  compile:
+    exitcode:
+    output:
+  execute:
+    exitcode: '0'
+    output:
+    wrong_output: True
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -Iruntime -O0'

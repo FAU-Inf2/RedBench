@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 714564958622
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C4'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in expand_expr_real_1, at expr.c:6545'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

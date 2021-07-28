@@ -1,0 +1,82 @@
+{% set v = variables[env("CONTEXT")] %}
+
+FROM {{ v.from }}
+LABEL maintainer="Programming Systems Group, CS Department, FAU"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# system
+
+RUN apt-get update --quiet && apt-get install \
+  --quiet --assume-yes --no-install-recommends \
+  {% if v.apt_packages != None -%}
+  {%- for package in v.apt_packages -%}
+  {{ package }} \
+  {% endfor -%}
+  {%- endif -%}
+  autoconf \
+  binutils \
+  bison \
+  build-essential \
+  bzip2 \
+  clang \
+  cmake \
+  dirmngr \
+  flex \
+  gcc \
+  gcc-multilib \
+  git \
+  gperf \
+  gnupg2 \
+  libc6-dev-i386 \
+  libgmp-dev \
+  libicu-dev \
+  libmpc-dev \
+  libmpfr-dev \
+  m4 \
+  make \
+  python \
+  python3 \
+  tar \
+  time \
+  unzip \
+  wget \
+  zip
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/lib/x86_64-linux-gnu/crt*.o /usr/lib
+
+
+# create user
+
+ARG user=user
+ARG group=user
+ARG uid=1000
+ARG gid=1000
+ARG home=/home/${user}
+ARG shell=/bin/bash
+
+RUN getent group ${gid} || groupadd --gid ${gid} ${group}
+RUN useradd --home-dir ${home} --create-home --shell ${shell} \
+  --uid ${uid} --gid ${gid} ${user}
+
+
+# required structure
+
+RUN mkdir /data
+RUN chown ${uid}:${gid} /data
+
+RUN mkdir /output
+RUN chown ${uid}:${gid} /output
+
+
+{% include '../../_templates/Dockerfiles/remove_suid.j2' %}
+
+
+# finish
+
+USER ${user}
+WORKDIR ${home}
+
+RUN mkdir -p install/bin

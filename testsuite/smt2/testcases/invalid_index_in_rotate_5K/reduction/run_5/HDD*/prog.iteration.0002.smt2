@@ -1,0 +1,16 @@
+
+(set-logic  QF_UFBV)
+(declare-fun p0 ((_ BitVec 8) (_ BitVec 16) (_ BitVec 11)  ) Bool )
+(declare-fun v0 () (_ BitVec 8))
+(declare-fun v1 () (_ BitVec 15))
+(assert
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a 0))
+(let ((a ((_ rotate_left 16) v1)))0)))))))))))

@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.2'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: '764922765626'
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'W9'
+  compile:
+    exitcode:
+    output:
+  execute:
+    exitcode: '0'
+    output:
+    wrong_output: True
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -Iruntime -O0'

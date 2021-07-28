@@ -1,0 +1,11 @@
+{% macro apt() %}
+USER root
+
+RUN apt-get update --quiet \
+  && apt-get install --quiet --assume-yes --no-install-recommends \
+    {{ caller() }} \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+USER user
+{% endmacro %}

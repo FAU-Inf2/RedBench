@@ -1,0 +1,8 @@
+(set-logic QF_UFSLIA)
+(declare-fun nU____ (Bool) Int)
+(declare-fun w8f () String)
+(declare-fun rX4t () String)
+(declare-fun nes_ () Bool)
+(assert (str.contains (str.from_code (nU____ false)) (str.replace_re w8f (ite nes_ re.none (re.range (_ char #xc) (_ char #x2c))) rX4t))
+)
+(check-sat)

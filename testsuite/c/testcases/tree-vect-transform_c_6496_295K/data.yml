@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.3.0'
+  options: '--std=c99 -w -Iruntime -O3'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 739911124821
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C30'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in vect_update_ivs_after_vectorizer, at tree-vect-transform.c:6496'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

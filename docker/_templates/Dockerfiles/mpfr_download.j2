@@ -1,0 +1,12 @@
+## mpfr (download)
+
+ARG mpfr_release={{ v.mpfr_release }}
+
+RUN wget \
+  "https://www.mpfr.org/mpfr-${mpfr_release}/mpfr-${mpfr_release}.tar.xz.asc"
+
+RUN wget --progress=dot:giga \
+  "https://www.mpfr.org/mpfr-${mpfr_release}/mpfr-${mpfr_release}.tar.xz"
+
+RUN gpg --keyserver keyserver.ubuntu.com --recv-key '07F3 DBBE CC1A 3960 5078  094D 980C 1976 98C3 739D' && \
+  gpg --verify "mpfr-${mpfr_release}.tar.xz.asc" "mpfr-${mpfr_release}.tar.xz"

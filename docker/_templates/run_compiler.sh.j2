@@ -1,0 +1,70 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+set -u
+
+usage() {
+  >&2 echo "[!] USAGE: $0 <release> <program> [compiler args...]"
+}
+
+if [ $# -lt 2 ] ; then
+  usage
+  exit 1
+fi
+
+# handle command line arguments
+readonly RELEASE="$1"
+shift
+
+readonly PROGRAM="$1"
+shift
+
+if [ ! -f "$PROGRAM" ] ; then
+  >&2 echo "[!] did not find program '$PROGRAM'"
+  usage
+  exit 2
+fi
+
+# check if the executing user is in the "docker" group
+if groups | grep -qE "\bdocker\b" ; then
+  readonly RUNCMD=
+else
+  readonly RUNCMD="sudo"
+fi
+
+if ! which 'docker' >/dev/null 2>&1 ; then
+  echo "[!] did not find a docker installation, unable to run container"
+  exit 2
+fi
+
+readonly DOCKERTAG="{{ name }}-${RELEASE}"
+readonly IMAGE_NAME="fau-i2-act/${DOCKERTAG}"
+
+program_in_container="/data/prog.{{ language }}"
+
+$RUNCMD docker image inspect "$IMAGE_NAME" >/dev/null 2>&1 || {
+  >&2 echo "[!] did not find docker image '$IMAGE_NAME'"
+  exit 2
+}
+
+# create container (but do not run it yet, since we have to copy the program to the container first)
+container_id=$(
+  $RUNCMD docker create \
+    --tty \
+    --rm --network=none \
+    --cap-drop=ALL \
+    --workdir="/data" \
+    --user="$(id -u):$(id -g)" \
+    "$IMAGE_NAME" \
+    /home/user/install/bin/{{ binary }} $@ "$program_in_container"
+)
+
+# copy program to container
+$RUNCMD docker cp "$PROGRAM" "$container_id":"$program_in_container"
+
+# run container
+$RUNCMD docker start -a "$container_id"
+exitcode=$?
+
+exit $exitcode

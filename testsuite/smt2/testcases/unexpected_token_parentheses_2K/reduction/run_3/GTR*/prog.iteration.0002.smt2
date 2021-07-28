@@ -1,0 +1,15 @@
+
+(set-logic  QF_UFBV)
+(declare-fun v1 () (_ BitVec 14))
+(assert
+(let ((e5 v1))
+(let ((e7 ((_ repeat 1))))
+(let ((e11 bvugt))
+(let ((e15 distinct))
+(let ((e19 p1))
+(let ((e23 bvuge))
+(let ((e27 ite))
+(let ((e31 e18))
+(let ((e35 e29))
+(let ((e39 or))
+e42)))))))))))

@@ -1,0 +1,19 @@
+---
+language:
+name: ubuntu
+binary:
+default_options:
+
+versions:
+  - '16'
+  - '18'
+
+variables:
+  context_16:
+    from: 'ubuntu:16.04'
+    apt_packages:
+      - openjdk-8-jdk-headless
+  context_18:
+    from: 'ubuntu:18.04'
+    apt_packages:
+      - openjdk-8-jdk-headless

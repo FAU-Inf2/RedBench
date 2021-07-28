@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'gcc'
+  version: '4.0.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 62086773210
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C6'
+  compile:
+    exitcode:
+    output: 'internal compiler error: in get_indirect_ref_operands, at tree-ssa-operands.c:1449'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

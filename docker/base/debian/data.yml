@@ -1,0 +1,27 @@
+---
+language:
+name: debian
+binary:
+default_options:
+
+versions:
+  - '8'
+  - '9'
+  - '10'
+
+variables:
+  context_8:
+    from: 'debian:jessie'
+    apt_packages:
+      - libunwind-dev
+  context_9:
+    from: 'debian:stretch'
+    apt_packages:
+      - libunwind-dev
+      - openjdk-8-jdk-headless
+  context_10:
+    from: 'debian:buster'
+    apt_packages:
+      - libunwind-dev
+      - openjdk-11-jdk-headless
+      - python3-distutils

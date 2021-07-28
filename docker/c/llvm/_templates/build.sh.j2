@@ -1,0 +1,59 @@
+{% extends '_templates/build.sh.j2' %}
+
+{% block context %}
+major_version=${ARG_RELEASE%%.*}  # 1 for 1.9
+if [ $major_version -eq 1 ] ; then
+    CONTEXT="context_1.9"
+else
+    CONTEXT="context_2.0_"
+fi
+{% endblock %}
+
+
+{% block build_args %}
+LLVM_VERSION="${ARG_RELEASE}"
+FRONTEND="llvm-gcc4-${ARG_RELEASE}.source"
+
+MD5SUM_BACKEND=""
+MD5SUM_FRONTEND=""
+
+case "$ARG_RELEASE" in
+  "1.9")
+    MD5SUM_BACKEND="866ba97420f5ce978b6a6b1cb4338890"
+    MD5SUM_FRONTEND="7a12b787c35e4243acba7f6653272445"
+    ;;
+  "2.0")
+    MD5SUM_BACKEND="6f88002301a25f31a492052695f6138e"
+    MD5SUM_FRONTEND="648b6e1e73d770bbef2712b16a993548"
+    ;;
+  "2.1")
+    MD5SUM_BACKEND="b930e7213b37acc934d0d163cf13af18"
+    MD5SUM_FRONTEND="b2592f6d4010f7128ff29eb8bffa3896"
+    ;;
+  "2.2")
+    MD5SUM_BACKEND="c16f89f0f28b66db0b776dfb2997cc40"
+    MD5SUM_FRONTEND="76d6057d8ef55cd6bd8578fb4d8967c7"
+    ;;
+  *)
+    echo "[!] unsupported LLVM version"
+    exit 2
+esac
+
+case "$ARG_RELEASE" in
+  "1.9"|"2.0")
+    FRONTEND="llvm-gcc4-${ARG_RELEASE}.source"
+    ;;
+  "2.1"|"2.2")
+    FRONTEND="llvm-gcc4.0-${ARG_RELEASE}.source"
+    ;;
+  *)
+    echo "[!] unsupported LLVM version"
+    exit 2
+esac
+
+BUILD_ARGS="\
+--build-arg md5sum_backend=$MD5SUM_BACKEND \
+--build-arg md5sum_frontend=$MD5SUM_FRONTEND \
+--build-arg llvm_version=$LLVM_VERSION \
+--build-arg frontend=$FRONTEND"
+{% endblock %}

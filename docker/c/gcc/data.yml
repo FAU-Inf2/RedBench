@@ -1,0 +1,28 @@
+---
+language: c
+name: gcc
+binary: gcc
+default_options: --std=c99 -w
+
+versions:
+  - '4.0.0'
+  - '4.1.0'
+  - '4.2.0'
+  - '4.3.0'
+  - '4.4.0'
+
+variables:
+  context_4.0.0_4.3.0:
+    from: 'fau-i2-act/debian-8'
+    gmp_release: '6.0.0a'
+    gmp_dir: 'gmp-6.0.0'
+    mpfr_release: '3.1.2'
+    release_file_suffix: '.tar.bz2'
+    gpg_fingerprint: 'B3C4 2148 A44E 6983 B3E4 CC07 93FA 9B1A B75C 61B8'
+  context_4.4.0_:
+    from: 'fau-i2-act/debian-8'
+    gmp_release: '6.0.0a'
+    gmp_dir: 'gmp-6.0.0'
+    mpfr_release: '3.1.2'
+    release_file_suffix: '.tar.bz2'
+    gpg_fingerprint: '33C2 35A3 4C46 AA3F FB29 3709 A328 C3A2 C3C4 5C06'

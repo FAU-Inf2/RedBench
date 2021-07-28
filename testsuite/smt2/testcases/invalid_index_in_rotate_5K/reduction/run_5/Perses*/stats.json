@@ -1,0 +1,256 @@
+{
+	"timestamp": "2021-04-16T01:36:43.094Z",
+	"reducer": "Perses",
+	"configuration": {
+		"in": "/data/prog.smt2",
+		"outDir": "/output_tmpfs/Perses*",
+		"grammar": "/reducer/grammars/smt2.txt",
+		"reduce": "Perses*",
+		"test": "/data/test.sh",
+		"cache": true
+	},
+	"steps": [
+		{
+			"index": 0,
+			"timestamp": 1,
+			"verificationTime": 0,
+			"size": 5217,
+			"tokens": 2166,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 20,
+			"timestamp": 162,
+			"verificationTime": 12,
+			"size": 5183,
+			"tokens": 2161,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 22,
+			"timestamp": 182,
+			"verificationTime": 12,
+			"size": 5156,
+			"tokens": 2156,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 23,
+			"timestamp": 194,
+			"verificationTime": 11,
+			"size": 5095,
+			"tokens": 2135,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 34,
+			"timestamp": 282,
+			"verificationTime": 11,
+			"size": 5062,
+			"tokens": 2124,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 41,
+			"timestamp": 355,
+			"verificationTime": 11,
+			"size": 5050,
+			"tokens": 2121,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 65,
+			"timestamp": 644,
+			"verificationTime": 11,
+			"size": 4985,
+			"tokens": 2092,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 71,
+			"timestamp": 715,
+			"verificationTime": 11,
+			"size": 4937,
+			"tokens": 2072,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 74,
+			"timestamp": 749,
+			"verificationTime": 11,
+			"size": 4888,
+			"tokens": 2052,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 76,
+			"timestamp": 773,
+			"verificationTime": 11,
+			"size": 568,
+			"tokens": 223,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 78,
+			"timestamp": 798,
+			"verificationTime": 12,
+			"size": 498,
+			"tokens": 195,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 79,
+			"timestamp": 811,
+			"verificationTime": 12,
+			"size": 430,
+			"tokens": 166,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 80,
+			"timestamp": 825,
+			"verificationTime": 11,
+			"size": 390,
+			"tokens": 151,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 81,
+			"timestamp": 838,
+			"verificationTime": 11,
+			"size": 350,
+			"tokens": 136,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 82,
+			"timestamp": 850,
+			"verificationTime": 11,
+			"size": 318,
+			"tokens": 125,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 92,
+			"timestamp": 969,
+			"verificationTime": 12,
+			"size": 307,
+			"tokens": 121,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 94,
+			"timestamp": 994,
+			"verificationTime": 11,
+			"size": 300,
+			"tokens": 117,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 108,
+			"timestamp": 1139,
+			"verificationTime": 11,
+			"size": 272,
+			"tokens": 110,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 116,
+			"timestamp": 1212,
+			"verificationTime": 11,
+			"size": 239,
+			"tokens": 99,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 122,
+			"timestamp": 1276,
+			"verificationTime": 13,
+			"size": 211,
+			"tokens": 86,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 128,
+			"timestamp": 1346,
+			"verificationTime": 12,
+			"size": 195,
+			"tokens": 77,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 131,
+			"timestamp": 1380,
+			"verificationTime": 11,
+			"size": 180,
+			"tokens": 68,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 134,
+			"timestamp": 1415,
+			"verificationTime": 12,
+			"size": 164,
+			"tokens": 59,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 137,
+			"timestamp": 1450,
+			"verificationTime": 11,
+			"size": 148,
+			"tokens": 50,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 138,
+			"timestamp": 1462,
+			"verificationTime": 11,
+			"size": 115,
+			"tokens": 39,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 143,
+			"timestamp": 1521,
+			"verificationTime": 11,
+			"size": 104,
+			"tokens": 35,
+			"result": "SUCCESSFUL"
+		},
+		{
+			"index": 153,
+			"timestamp": 1621,
+			"verificationTime": 11,
+			"size": 88,
+			"tokens": 26,
+			"result": "SUCCESSFUL"
+		}
+	],
+	"iterations": [
+		{
+			"checks": 101,
+			"timestamp": 1083,
+			"timeInTestFunction": 945
+		},
+		{
+			"checks": 146,
+			"timestamp": 1554,
+			"timeInTestFunction": 1392
+		},
+		{
+			"checks": 160,
+			"timestamp": 1701,
+			"timeInTestFunction": 1533
+		},
+		{
+			"checks": 163,
+			"timestamp": 1724,
+			"timeInTestFunction": 1553
+		}
+	],
+	"totalTime": 1725,
+	"wallTime": 1917,
+	"timeInTestFunction": 1553,
+	"numberOfChecks": 163
+}

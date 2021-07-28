@@ -1,0 +1,23 @@
+---
+language: 'c'
+compiler:
+  name: 'llvm'
+  version: '2.0'
+  options: '--std=c99 -w -Iruntime -O1'
+generator:
+  name: 'csmith'
+  version: '2.3.0'
+  seed: 700523267861
+  options: '--bitfields --packed-struct'
+bug:
+  id: 'C58'
+  compile:
+    exitcode:
+    output: '/lib/Transforms/Scalar/LoopUnswitch.cpp:575:'
+  execute:
+    exitcode:
+    output:
+    wrong_output: False
+    oracle:
+      binary: '/usr/bin/gcc'
+      options: '--std=c99 -w -Iruntime -O0'

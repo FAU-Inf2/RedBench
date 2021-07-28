@@ -1,0 +1,11 @@
+## gmp (build)
+
+ARG gmp_release={{ v.gmp_release }}
+ARG gmp_dir={{ v.gmp_dir|default("gmp-" + v.gmp_release) }}
+
+RUN tar xvf "gmp-${gmp_release}.tar.xz"
+RUN cd "${gmp_dir}" && ./configure \
+  --disable-shared \
+  --prefix=$(realpath ../install)
+RUN cd "${gmp_dir}" && make
+RUN cd "${gmp_dir}" && make install

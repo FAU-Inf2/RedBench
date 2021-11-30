@@ -34,7 +34,9 @@ literature:
 
 If you want to cite *RedBench*, please cite our ICSME'21 research paper:
 
-- *to appear*
+- Kreutzer, P., Kunze, T., Philippsen, M.: Test Case Reduction: A Framework, Benchmark, and
+  Comparative Study. In: ICSME'21: International Conference on Software Maintenance and Evolution
+  (Virtual, Luxembourg, Sep. 2021), 58–69.
 
 
 ## Benchmark Statistics

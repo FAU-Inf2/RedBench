@@ -27,6 +27,7 @@ readonly PROGRAM="${1-"prog.{{ language }}"}"
     readonly GOOD_OPT="{{ bug.execute.oracle.options }}"
     readonly GOOD_OUT="${PROGRAM}.good.out"
     readonly CLANG_OUT="${PROGRAM}.clang.out"
+    readonly FRAMA_C_OUT="${PROGRAM}.frama_c.out"
 {% endif %}
 
 # {{ compiler.name }} -- {{ compiler.version }}
@@ -35,6 +36,19 @@ readonly BAD_OPT="{{ compiler.options|default('', true) }}"
 readonly BAD_EXE="${PROGRAM}.bad.exe"
 readonly TIMEOUT_compile=10
 readonly TIMEOUT_execute=2
+
+cleanup() {
+    rm -f "$BAD_EXE"
+    {% if use_execute %}
+        rm -f "$GOOD_EXE"
+        rm -f "$GOOD_OUT"
+        rm -f "$CLANG_OUT"
+        rm -f "$FRAMA_C_OUT"
+        rm -f "$PROGRAM.bak"
+    {% endif %}
+}
+
+trap cleanup EXIT
 
 
 {% if use_execute %}
@@ -144,7 +158,6 @@ bad_compile_exitcode=$?
 
 {% if use_execute %}
     {# NO BUG if undefined or unspecified behavior (frama-c, like at c-reduce) #}
-    readonly FRAMA_C_OUT="${PROGRAM}.frama_c.out"
 
     perl -pi.bak -e 's/int main \(int argc, char\* argv\[\]\)/int argc; char **argv; int main (void)/' \
         "$PROGRAM" || exit 0

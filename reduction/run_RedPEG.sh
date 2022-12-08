@@ -53,6 +53,6 @@ for data_file in $(find -L "$BASE_DIR" -name "data.yml" -exec realpath {} + | so
   test_case_name="$(basename "$test_case_dir")"
 
   echo "==========[ reduce '$test_case_name' ]=========="
-  "$(dirname "$0")/run_reducer.sh" "$test_case_dir" "$reducer_dir" "$command_line" "$RESULT_NAME"
+  "$(dirname "$0")/run_reducer.sh" "$test_case_dir" "$reducer_dir" "$command_line" "$RESULT_NAME" || true
 done
 

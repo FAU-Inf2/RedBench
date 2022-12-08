@@ -136,3 +136,5 @@ fi
 set -e
 
 $RUNCMD docker rm "$container_id" >/dev/null
+
+exit "$exitcode"

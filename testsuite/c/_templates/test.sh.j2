@@ -36,6 +36,7 @@ readonly BAD_OPT="{{ compiler.options|default('', true) }}"
 readonly BAD_EXE="${PROGRAM}.bad.exe"
 readonly TIMEOUT_compile=10
 readonly TIMEOUT_execute=2
+readonly TIMEOUT_framac=300
 
 cleanup() {
     rm -f "$BAD_EXE"
@@ -162,7 +163,7 @@ bad_compile_exitcode=$?
     perl -pi.bak -e 's/int main \(int argc, char\* argv\[\]\)/int argc; char **argv; int main (void)/' \
         "$PROGRAM" || exit 0
 
-    frama-c -cpp-command "$GOOD -C -Dvolatile= -E $GOOD_OPT" \
+    timeout -s 9 $TIMEOUT_framac frama-c -cpp-command "$GOOD -C -Dvolatile= -E $GOOD_OPT" \
         -warn-signed-overflow -val-stop-at-nth-alarm 1 \
         -val -no-val-show-progress -machdep x86_64 -obviously-terminates \
         "$PROGRAM" 2>&1 > "$FRAMA_C_OUT"

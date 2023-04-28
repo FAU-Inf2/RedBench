@@ -23,7 +23,11 @@ for path in args.path:
             data = json.load(f)
 
         configuration = data['configuration']
-        reducer = configuration['reduce']
+        outDir = configuration['outDir']
+        folder = outDir.split("/")[-1]
+#        reducer = configuration['reduce']
+#        reducer = abbrevs.get(reducer, reducer)
+        reducer = folder
 
         if reducer in results:
             raise Exception(f"multiple results for reducer '{reducer}'")

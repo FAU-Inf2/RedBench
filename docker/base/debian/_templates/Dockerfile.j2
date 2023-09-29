@@ -7,6 +7,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # system
 
+{% if v.sources_override is defined %}
+RUN rm /etc/apt/sources.list
+{% for line in v.sources_override %}
+RUN echo "{{line}}" >> /etc/apt/sources.list
+{% endfor%}
+{% endif %}
+
+
 RUN apt-get update --quiet && apt-get install \
   --quiet --assume-yes --no-install-recommends \
   {% if v.apt_packages != None -%}

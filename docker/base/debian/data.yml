@@ -11,9 +11,12 @@ versions:
 
 variables:
   context_8:
-    from: 'debian:jessie'
+    from: 'debian/eol:jessie'
     apt_packages:
       - libunwind-dev
+    sources_override:
+      - 'deb http://archive.debian.org/debian/ jessie main contrib non-free'
+      - 'deb http://archive.debian.org/debian-security jessie/updates main contrib non-free'
   context_9:
     from: 'debian:stretch'
     apt_packages:

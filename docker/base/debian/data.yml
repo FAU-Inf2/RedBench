@@ -18,10 +18,13 @@ variables:
       - 'deb http://archive.debian.org/debian/ jessie main contrib non-free'
       - 'deb http://archive.debian.org/debian-security jessie/updates main contrib non-free'
   context_9:
-    from: 'debian:stretch'
+    from: 'debian/eol:stretch'
     apt_packages:
       - libunwind-dev
       - openjdk-8-jdk-headless
+    sources_override:
+      - 'deb http://archive.debian.org/debian/ stretch main contrib non-free'
+      - 'deb http://archive.debian.org/debian-security stretch/updates main contrib non-free'
   context_10:
     from: 'debian:buster'
     apt_packages:

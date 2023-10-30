@@ -32,13 +32,19 @@ readonly PROGRAM="${1-"prog.{{ language }}"}"
 
 # {{ compiler.name }} -- {{ compiler.version }}
 readonly BAD="/home/user/install/bin/{{ compiler_name }}"
+{% if use_execute %}
 readonly BAD_OPT="{{ compiler.options|default('', true) }}"
+{% else %}
+readonly BAD_CONFIG_OPT="{{ compiler.options|default('', true) }}"
+readonly BAD_OPT="-pipe -c $BAD_CONFIG_OPT"
+{% endif %}
 readonly BAD_EXE="${PROGRAM}.bad.exe"
 readonly TIMEOUT_compile=10
 readonly TIMEOUT_execute=2
 readonly TIMEOUT_framac=300
 
 cleanup() {
+    pkill -TERM -P ${$}
     rm -f "$BAD_EXE"
     {% if use_execute %}
         rm -f "$GOOD_EXE"

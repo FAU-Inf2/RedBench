@@ -36,7 +36,7 @@ RUN chmod +x install/bin/cvc4
 # build cvc4
 
 ARG release
-RUN git clone --branch ${release} --depth 1 \
+RUN git clone --branch cvc4-${release} --depth 1 \
   https://github.com/CVC4/CVC4.git ${release}
 
 RUN cd ${release} && ./contrib/get-antlr-3.4

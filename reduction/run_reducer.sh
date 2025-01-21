@@ -26,6 +26,14 @@ else
   readonly RESULT_NAME="$(date '+%Y_%m_%d__%H_%M_%S')"
 fi
 
+readonly TMP_DIR=$(mktemp -d)
+
+cleanup() {
+  rm -rf $TMP_DIR
+}
+
+trap cleanup EXIT
+
 get_data_file() { # <test case dir>
   readonly local test_case_dir="$1"
   local _data_file="$test_case_dir/data.yml"
@@ -93,6 +101,15 @@ $RUNCMD docker image inspect "$image_name" >/dev/null 2>&1 || {
 readonly program_in_container="/data/prog.$language"
 readonly test_in_container="/data/test.sh"
 
+if [[ $(cat /proc/cpuinfo | grep 'model name' | uniq) == *"i7-12700K" ]] ; then
+  readonly CPUSET="0-15"
+else
+  readonly CPUSET="0-$(($(nproc)-1))"
+fi
+
+#resolve symlinks for Reducer (for some reason...)
+cp -a -r -L "$REDUCER_DIR/." "$TMP_DIR"
+
 # create container (but do not run it yet, since we have to copy some files to the container first)
 container_id=$(
   $RUNCMD docker create \
@@ -101,6 +118,7 @@ container_id=$(
     --cap-drop=ALL \
     --workdir="/data" \
     --user="$(id -u):$(id -g)" \
+    --cpuset-cpus $CPUSET \
     --tmpfs /output_tmpfs:exec \
     --env PROGRAM="$program_in_container" \
     --env TEST="$test_in_container" \
@@ -111,7 +129,7 @@ container_id=$(
 
 # copy test case and reducer directories to container
 $RUNCMD docker cp "$TEST_CASE_DIR/." "$container_id":"/data"
-$RUNCMD docker cp "$REDUCER_DIR/." "$container_id":"/reducer"
+$RUNCMD docker cp "$TMP_DIR/." "$container_id":"/reducer"
 
 set +e
 

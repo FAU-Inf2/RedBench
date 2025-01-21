@@ -19,7 +19,8 @@ variables:
     release_file_suffix: '.tar.bz2'
   context_2.0_:
     from: 'fau-i2-act/ubuntu-16'
-    run_from: 'fau-i2-act/ubuntu-16'
+    run_from: 'fau-i2-act/debian-10'
+    old_run_from: 'fau-i2-act/ubuntu-16'
     gmp_release: '6.1.0'
     mpfr_release: '3.1.4'
     release_file_suffix: '.tar.bz2'

@@ -5,6 +5,8 @@
 
 {% include '../../_templates/Dockerfiles/csmith.j2' %}
 
+{% include '../../_templates/Dockerfiles/llvm.j2' %}
+
 
 # -----
 
@@ -100,6 +102,10 @@ LABEL maintainer="Programming Systems Group, CS Department, FAU"
 # csmith runtime
 
 COPY --from=csmith-builder /data/csmith/runtime /data/runtime
+
+# llvm-16
+
+COPY --from=llvm-tools-builder /data/llvm-16 /data/llvm-16
 
 # {{ name }}
 
